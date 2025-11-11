@@ -1,0 +1,88 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+        default: 'patch'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version
+        run: |
+          npm version ${{ inputs.version_bump }} -m 'chore: bump version to %s'
+
+      - name: Get new version
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -f dist/noviks-dashboard.js ]; then
+            echo "Build failed: dist/noviks-dashboard.js not found"
+            exit 1
+          fi
+          echo "Build successful: dist/noviks-dashboard.js created ($(du -h dist/noviks-dashboard.js | cut -f1))"
+
+      - name: Commit build files
+        run: |
+          git add dist/
+          git commit --amend --no-edit
+
+      - name: Push changes and tags
+        run: |
+          git push origin master
+          git push origin --tags
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
+          body: |
+            ## Release v${{ steps.version.outputs.version }}
+
+            Automated release created by GitHub Actions.
+
+            ### Installation
+
+            For HACS users, this release will be automatically detected.
+
+            For manual installation, download `noviks-dashboard.js` and add it to your Home Assistant `www` folder.
+          files: |
+            dist/noviks-dashboard.js
+          draft: false
+          prerelease: false
