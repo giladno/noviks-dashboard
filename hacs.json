@@ -1,6 +1,6 @@
 {
   "name": "Novik's Dashboard",
   "content_in_root": false,
-  "filename": "dist/noviks-dashboard.js",
+  "filename": "noviks-dashboard.js",
   "render_readme": true
 }
