@@ -35,7 +35,7 @@ A beautiful, modern Home Assistant dashboard built as a Lovelace strategy with c
 
 ### HACS (Recommended)
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=giladno&repository=noviks-dashboard&category=plugin)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=giladno&repository=noviks-dashboard&category=dashboard)
 
 1. Click the button above or manually open HACS in your Home Assistant instance
 2. Search for "Novik's Dashboard" if not automatically opened
