@@ -15,12 +15,12 @@ export const tiles = new Map<string, typeof Tile>(
 );
 
 for (const [domain, tile] of tiles) {
-  tile.tag = `novik-${domain}`;
+  tile.tag = `novik-${domain}${import.meta.env.VITE_SUFFIX}`;
   customElements.define(tile.tag, tile);
 }
 
 export class View extends LitElement {
-  static readonly tag = 'novik-view';
+  static readonly tag = `novik-view${import.meta.env.VITE_SUFFIX}`;
   static styles = css`
     :host {
       display: block;

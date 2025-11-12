@@ -61,7 +61,7 @@ function groupEntities(entities: Map<string, EntityRegistryEntry[]> | EntityRegi
 }
 
 export class Strategy extends HTMLElement {
-  static readonly tag = `ll-strategy-dashboard-novik-strategy`;
+  static readonly tag = `ll-strategy-dashboard-novik-strategy${import.meta.env.VITE_SUFFIX}`;
 
   public static async generate(_config: Record<string, any>, hass: HomeAssistant) {
     const [config, areaRegistry, deviceRegistry, entityRegistry] = await Promise.all([

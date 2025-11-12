@@ -6,7 +6,7 @@ import {NovikSettings, Registry} from 'types/settings';
 import {tiles} from './view';
 
 export default class Settings extends LitElement {
-  static readonly tag = 'novik-settings';
+  static readonly tag = `novik-settings${import.meta.env.VITE_SUFFIX}`;
   static styles = css`
     :host {
       display: block;
