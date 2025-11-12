@@ -1,4 +1,4 @@
-import {css, html, LitElement} from 'lit';
+import {css, html, LitElement, PropertyValues} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {repeat} from 'lit/directives/repeat.js';
 import type {HomeAssistant} from 'types/ha';
@@ -825,6 +825,7 @@ export default class Settings extends LitElement {
   @property({type: Object}) settings!: NovikSettings;
   @property({type: Boolean, reflect: true}) dark = false;
 
+  @state() private domains = new Map<string, number>();
   @state() private expandedSection: string | null = null;
   @state() private entitySearch: string = '';
   @state() private draggedAreaIndex: number | null = null;
@@ -844,22 +845,6 @@ export default class Settings extends LitElement {
       : areas;
   }
 
-  public static show({hass, registry, settings}: {hass: HomeAssistant; registry: Registry; settings: NovikSettings}) {
-    const el = document.createElement('novik-settings');
-    el.hass = hass;
-    el.registry = registry;
-    el.settings = {
-      dark_mode: settings.dark_mode ?? false,
-      excluded_domains: Array.from(settings.excluded_domains || []),
-      excluded_entities: Array.from(settings.excluded_entities || []),
-      favorites: Array.from(settings.favorites || []),
-      area_order: Array.from(settings.area_order || []),
-      hidden_areas: Array.from(settings.hidden_areas || []),
-    };
-    el.dark = settings.dark_mode ?? false;
-    document.body.appendChild(el);
-  }
-
   connectedCallback() {
     super.connectedCallback();
     document.body.style.overflow = 'hidden';
@@ -870,6 +855,19 @@ export default class Settings extends LitElement {
     document.body.style.overflow = '';
     clearTimeout(this.saveTimeout || undefined);
     this.save().then(() => window.dispatchEvent(new CustomEvent('location-changed', {bubbles: true, composed: true})));
+  }
+
+  updated(changedProps: PropertyValues) {
+    if (changedProps.has('registry')) {
+      this.domains = new Map(
+        Object.entries(
+          this.registry.entities.reduce(
+            (domains, entity) => Object.assign(domains, {[entity.domain!]: (domains[entity.domain!] ?? 0) + 1}),
+            {} as Record<string, number>
+          )
+        )
+      );
+    }
   }
 
   private toggleSection(sectionId: string) {
@@ -967,7 +965,7 @@ export default class Settings extends LitElement {
                 <ha-icon icon="${tile.icon}"></ha-icon>
                 <div class="domain-info">
                   <div class="domain-name">${tile.title}</div>
-                  <div class="domain-key">${tile.domain}</div>
+                  <div class="domain-key">${this.domains.get(tile.domain) ?? '-'}</div>
                 </div>
               </label>
               <input
@@ -1205,6 +1203,22 @@ export default class Settings extends LitElement {
         </div>
       </div>
     `;
+  }
+
+  public static show({hass, registry, settings}: {hass: HomeAssistant; registry: Registry; settings: NovikSettings}) {
+    const el = document.createElement('novik-settings');
+    el.hass = hass;
+    el.registry = registry;
+    el.settings = {
+      dark_mode: settings.dark_mode ?? false,
+      excluded_domains: Array.from(settings.excluded_domains || []),
+      excluded_entities: Array.from(settings.excluded_entities || []),
+      favorites: Array.from(settings.favorites || []),
+      area_order: Array.from(settings.area_order || []),
+      hidden_areas: Array.from(settings.hidden_areas || []),
+    };
+    el.dark = settings.dark_mode ?? false;
+    document.body.appendChild(el);
   }
 }
 

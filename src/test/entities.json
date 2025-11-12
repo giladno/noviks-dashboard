@@ -1,0 +1,506 @@
+[
+  {
+    "entity_id": "light.living_room_ceiling",
+    "name": "Ceiling Light",
+    "original_name": "Living Room Ceiling Light",
+    "area_id": "living_room",
+    "device_id": "device_lr_ceiling",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.living_room_floor_lamp",
+    "name": "Floor Lamp",
+    "original_name": "Living Room Floor Lamp",
+    "area_id": "living_room",
+    "device_id": "device_lr_floor",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.kitchen_counter",
+    "name": "Counter Lights",
+    "original_name": "Kitchen Counter Lights",
+    "area_id": "kitchen",
+    "device_id": "device_kitchen_counter",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.kitchen_pendant",
+    "name": "Pendant Lights",
+    "original_name": "Kitchen Pendant Lights",
+    "area_id": "kitchen",
+    "device_id": "device_kitchen_pendant",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.bedroom_main",
+    "name": "Main Light",
+    "original_name": "Bedroom Main Light",
+    "area_id": "bedroom",
+    "device_id": "device_bedroom_main",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.bedroom_bedside",
+    "name": "Bedside Lamp",
+    "original_name": "Bedroom Bedside Lamp",
+    "area_id": "bedroom",
+    "device_id": "device_bedroom_bedside",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.bathroom_vanity",
+    "name": "Vanity Lights",
+    "original_name": "Bathroom Vanity Lights",
+    "area_id": "bathroom",
+    "device_id": "device_bathroom_vanity",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.office_desk",
+    "name": "Desk Lamp",
+    "original_name": "Office Desk Lamp",
+    "area_id": "office",
+    "device_id": "device_office_desk",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.garage_main",
+    "name": "Main Light",
+    "original_name": "Garage Main Light",
+    "area_id": "garage",
+    "device_id": "device_garage_main",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.entrance_porch",
+    "name": "Porch Light",
+    "original_name": "Entrance Porch Light",
+    "area_id": "entrance",
+    "device_id": "device_entrance_porch",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.backyard_path",
+    "name": "Path Lights",
+    "original_name": "Backyard Path Lights",
+    "area_id": "backyard",
+    "device_id": "device_backyard_path",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.kids_room_ceiling",
+    "name": "Ceiling Light",
+    "original_name": "Kids Room Ceiling Light",
+    "area_id": "kids_room",
+    "device_id": "device_kids_ceiling",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.dining_room_chandelier",
+    "name": "Chandelier",
+    "original_name": "Dining Room Chandelier",
+    "area_id": "dining_room",
+    "device_id": "device_dining_chandelier",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.hallway_main",
+    "name": "Hallway Light",
+    "original_name": "Hallway Main Light",
+    "area_id": "hallway",
+    "device_id": "device_hallway_main",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "light.basement_stairs",
+    "name": "Stairway Lights",
+    "original_name": "Basement Stairway Lights",
+    "area_id": "basement",
+    "device_id": "device_basement_stairs",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "switch.living_room_fan",
+    "name": "Ceiling Fan",
+    "original_name": "Living Room Ceiling Fan",
+    "area_id": "living_room",
+    "device_id": "device_lr_fan",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "switch.kitchen_exhaust",
+    "name": "Exhaust Fan",
+    "original_name": "Kitchen Exhaust Fan",
+    "area_id": "kitchen",
+    "device_id": "device_kitchen_exhaust",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "switch.bedroom_humidifier",
+    "name": "Humidifier",
+    "original_name": "Bedroom Humidifier",
+    "area_id": "bedroom",
+    "device_id": "device_bedroom_humidifier",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "switch.bathroom_heater",
+    "name": "Space Heater",
+    "original_name": "Bathroom Space Heater",
+    "area_id": "bathroom",
+    "device_id": "device_bathroom_heater",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "switch.office_monitor",
+    "name": "Monitor Power",
+    "original_name": "Office Monitor Power",
+    "area_id": "office",
+    "device_id": "device_office_monitor",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "switch.garage_workbench",
+    "name": "Workbench Outlet",
+    "original_name": "Garage Workbench Outlet",
+    "area_id": "garage",
+    "device_id": "device_garage_workbench",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "switch.backyard_fountain",
+    "name": "Fountain Pump",
+    "original_name": "Backyard Fountain Pump",
+    "area_id": "backyard",
+    "device_id": "device_backyard_fountain",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "switch.laundry_room_dryer",
+    "name": "Dryer Outlet",
+    "original_name": "Laundry Room Dryer Outlet",
+    "area_id": "laundry_room",
+    "device_id": "device_laundry_dryer",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "climate.living_room_thermostat",
+    "name": "Thermostat",
+    "original_name": "Living Room Thermostat",
+    "area_id": "living_room",
+    "device_id": "device_lr_thermostat",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "climate.bedroom_ac",
+    "name": "Air Conditioner",
+    "original_name": "Bedroom Air Conditioner",
+    "area_id": "bedroom",
+    "device_id": "device_bedroom_ac",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "climate.office_heater",
+    "name": "Space Heater",
+    "original_name": "Office Space Heater",
+    "area_id": "office",
+    "device_id": "device_office_heater",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "lock.entrance_front_door",
+    "name": "Front Door",
+    "original_name": "Entrance Front Door Lock",
+    "area_id": "entrance",
+    "device_id": "device_entrance_lock",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "lock.garage_door",
+    "name": "Garage Door Lock",
+    "original_name": "Garage Door Lock",
+    "area_id": "garage",
+    "device_id": "device_garage_lock",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "lock.backyard_gate",
+    "name": "Gate Lock",
+    "original_name": "Backyard Gate Lock",
+    "area_id": "backyard",
+    "device_id": "device_backyard_gate",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "cover.living_room_blinds",
+    "name": "Window Blinds",
+    "original_name": "Living Room Window Blinds",
+    "area_id": "living_room",
+    "device_id": "device_lr_blinds",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "cover.bedroom_curtains",
+    "name": "Curtains",
+    "original_name": "Bedroom Curtains",
+    "area_id": "bedroom",
+    "device_id": "device_bedroom_curtains",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "cover.garage_door",
+    "name": "Garage Door",
+    "original_name": "Garage Door",
+    "area_id": "garage",
+    "device_id": "device_garage_door",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "cover.office_blinds",
+    "name": "Office Blinds",
+    "original_name": "Office Window Blinds",
+    "area_id": "office",
+    "device_id": "device_office_blinds",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "button.garage_door_opener",
+    "name": "Door Opener",
+    "original_name": "Garage Door Opener Button",
+    "area_id": "garage",
+    "device_id": "device_garage_opener",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "button.entrance_doorbell",
+    "name": "Doorbell",
+    "original_name": "Entrance Doorbell Button",
+    "area_id": "entrance",
+    "device_id": "device_entrance_doorbell",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "button.bedroom_scene_goodnight",
+    "name": "Goodnight Scene",
+    "original_name": "Bedroom Goodnight Scene Button",
+    "area_id": "bedroom",
+    "device_id": "device_bedroom_scene",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "camera.entrance_doorbell",
+    "name": "Doorbell Camera",
+    "original_name": "Entrance Doorbell Camera",
+    "area_id": "entrance",
+    "device_id": "device_entrance_camera",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "camera.backyard_patio",
+    "name": "Patio Camera",
+    "original_name": "Backyard Patio Camera",
+    "area_id": "backyard",
+    "device_id": "device_backyard_camera",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "camera.garage_interior",
+    "name": "Interior Camera",
+    "original_name": "Garage Interior Camera",
+    "area_id": "garage",
+    "device_id": "device_garage_camera",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "name": "Temperature",
+    "original_name": "Living Room Temperature",
+    "area_id": "living_room",
+    "device_id": "device_lr_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.living_room_humidity",
+    "name": "Humidity",
+    "original_name": "Living Room Humidity",
+    "area_id": "living_room",
+    "device_id": "device_lr_humidity",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.kitchen_temperature",
+    "name": "Temperature",
+    "original_name": "Kitchen Temperature",
+    "area_id": "kitchen",
+    "device_id": "device_kitchen_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.bedroom_temperature",
+    "name": "Temperature",
+    "original_name": "Bedroom Temperature",
+    "area_id": "bedroom",
+    "device_id": "device_bedroom_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.bedroom_humidity",
+    "name": "Humidity",
+    "original_name": "Bedroom Humidity",
+    "area_id": "bedroom",
+    "device_id": "device_bedroom_humidity",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.bathroom_humidity",
+    "name": "Humidity",
+    "original_name": "Bathroom Humidity",
+    "area_id": "bathroom",
+    "device_id": "device_bathroom_humidity",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.office_temperature",
+    "name": "Temperature",
+    "original_name": "Office Temperature",
+    "area_id": "office",
+    "device_id": "device_office_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.garage_temperature",
+    "name": "Temperature",
+    "original_name": "Garage Temperature",
+    "area_id": "garage",
+    "device_id": "device_garage_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.entrance_motion",
+    "name": "Motion Sensor",
+    "original_name": "Entrance Motion Sensor",
+    "area_id": "entrance",
+    "device_id": "device_entrance_motion",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.backyard_temperature",
+    "name": "Temperature",
+    "original_name": "Backyard Temperature",
+    "area_id": "backyard",
+    "device_id": "device_backyard_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.backyard_illuminance",
+    "name": "Light Level",
+    "original_name": "Backyard Light Level",
+    "area_id": "backyard",
+    "device_id": "device_backyard_lux",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.laundry_room_humidity",
+    "name": "Humidity",
+    "original_name": "Laundry Room Humidity",
+    "area_id": "laundry_room",
+    "device_id": "device_laundry_humidity",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.kids_room_temperature",
+    "name": "Temperature",
+    "original_name": "Kids Room Temperature",
+    "area_id": "kids_room",
+    "device_id": "device_kids_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.basement_humidity",
+    "name": "Humidity",
+    "original_name": "Basement Humidity",
+    "area_id": "basement",
+    "device_id": "device_basement_humidity",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.hallway_motion",
+    "name": "Motion Sensor",
+    "original_name": "Hallway Motion Sensor",
+    "area_id": "hallway",
+    "device_id": "device_hallway_motion",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.balcony_temperature",
+    "name": "Temperature",
+    "original_name": "Balcony Temperature",
+    "area_id": "balcony",
+    "device_id": "device_balcony_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  },
+  {
+    "entity_id": "sensor.guest_room_temperature",
+    "name": "Temperature",
+    "original_name": "Guest Room Temperature",
+    "area_id": "guest_room",
+    "device_id": "device_guest_temp",
+    "disabled_by": null,
+    "hidden_by": null
+  }
+]

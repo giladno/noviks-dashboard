@@ -1,0 +1,92 @@
+[
+  {
+    "area_id": "living_room",
+    "name": "Living Room",
+    "floor_id": "ground_floor",
+    "icon": "mdi:sofa"
+  },
+  {
+    "area_id": "kitchen",
+    "name": "Kitchen",
+    "floor_id": "ground_floor",
+    "icon": "mdi:silverware-fork-knife"
+  },
+  {
+    "area_id": "bedroom",
+    "name": "Bedroom",
+    "floor_id": "second_floor",
+    "icon": "mdi:bed"
+  },
+  {
+    "area_id": "bathroom",
+    "name": "Bathroom",
+    "floor_id": "second_floor",
+    "icon": "mdi:shower"
+  },
+  {
+    "area_id": "garage",
+    "name": "Garage",
+    "floor_id": "ground_floor",
+    "icon": "mdi:garage"
+  },
+  {
+    "area_id": "office",
+    "name": "Office",
+    "floor_id": "second_floor",
+    "icon": "mdi:desk"
+  },
+  {
+    "area_id": "backyard",
+    "name": "Backyard",
+    "floor_id": null,
+    "icon": "mdi:tree"
+  },
+  {
+    "area_id": "entrance",
+    "name": "Entrance",
+    "floor_id": "ground_floor",
+    "icon": "mdi:door"
+  },
+  {
+    "area_id": "laundry_room",
+    "name": "Laundry Room",
+    "floor_id": "ground_floor",
+    "icon": "mdi:washing-machine"
+  },
+  {
+    "area_id": "kids_room",
+    "name": "Kids Room",
+    "floor_id": "second_floor",
+    "icon": "mdi:baby-carriage"
+  },
+  {
+    "area_id": "dining_room",
+    "name": "Dining Room",
+    "floor_id": "ground_floor",
+    "icon": "mdi:table-furniture"
+  },
+  {
+    "area_id": "basement",
+    "name": "Basement",
+    "floor_id": "basement_floor",
+    "icon": "mdi:stairs-down"
+  },
+  {
+    "area_id": "hallway",
+    "name": "Hallway",
+    "floor_id": "second_floor",
+    "icon": "mdi:walk"
+  },
+  {
+    "area_id": "balcony",
+    "name": "Balcony",
+    "floor_id": "second_floor",
+    "icon": "mdi:balcony"
+  },
+  {
+    "area_id": "guest_room",
+    "name": "Guest Room",
+    "floor_id": "second_floor",
+    "icon": "mdi:human-greeting"
+  }
+]

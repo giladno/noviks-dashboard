@@ -1,0 +1,883 @@
+{
+  "light.living_room_ceiling": {
+    "entity_id": "light.living_room_ceiling",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Living Room Ceiling Light",
+      "supported_color_modes": ["brightness", "color_temp"],
+      "brightness": 200,
+      "color_temp": 370
+    },
+    "last_changed": "2025-11-11T10:30:00.000Z",
+    "last_updated": "2025-11-11T10:30:00.000Z",
+    "context": {
+      "id": "ctx_001",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.living_room_floor_lamp": {
+    "entity_id": "light.living_room_floor_lamp",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Living Room Floor Lamp",
+      "supported_color_modes": ["brightness"],
+      "brightness": 0
+    },
+    "last_changed": "2025-11-11T08:00:00.000Z",
+    "last_updated": "2025-11-11T08:00:00.000Z",
+    "context": {
+      "id": "ctx_002",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.kitchen_counter": {
+    "entity_id": "light.kitchen_counter",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Kitchen Counter Lights",
+      "supported_color_modes": ["brightness", "rgb"],
+      "brightness": 255,
+      "rgb_color": [255, 255, 255]
+    },
+    "last_changed": "2025-11-11T07:15:00.000Z",
+    "last_updated": "2025-11-11T07:15:00.000Z",
+    "context": {
+      "id": "ctx_003",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.kitchen_pendant": {
+    "entity_id": "light.kitchen_pendant",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Kitchen Pendant Lights",
+      "supported_color_modes": ["brightness"],
+      "brightness": 180
+    },
+    "last_changed": "2025-11-11T07:15:00.000Z",
+    "last_updated": "2025-11-11T07:15:00.000Z",
+    "context": {
+      "id": "ctx_004",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.bedroom_main": {
+    "entity_id": "light.bedroom_main",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Bedroom Main Light",
+      "supported_color_modes": ["brightness"],
+      "brightness": 0
+    },
+    "last_changed": "2025-11-11T06:00:00.000Z",
+    "last_updated": "2025-11-11T06:00:00.000Z",
+    "context": {
+      "id": "ctx_005",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.bedroom_bedside": {
+    "entity_id": "light.bedroom_bedside",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Bedroom Bedside Lamp",
+      "supported_color_modes": ["brightness", "color_temp"],
+      "brightness": 100,
+      "color_temp": 450
+    },
+    "last_changed": "2025-11-11T22:30:00.000Z",
+    "last_updated": "2025-11-11T22:30:00.000Z",
+    "context": {
+      "id": "ctx_006",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.bathroom_vanity": {
+    "entity_id": "light.bathroom_vanity",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Bathroom Vanity Lights",
+      "supported_color_modes": ["brightness"],
+      "brightness": 255
+    },
+    "last_changed": "2025-11-11T07:00:00.000Z",
+    "last_updated": "2025-11-11T07:00:00.000Z",
+    "context": {
+      "id": "ctx_007",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.office_desk": {
+    "entity_id": "light.office_desk",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Office Desk Lamp",
+      "supported_color_modes": ["brightness"],
+      "brightness": 220
+    },
+    "last_changed": "2025-11-11T09:00:00.000Z",
+    "last_updated": "2025-11-11T09:00:00.000Z",
+    "context": {
+      "id": "ctx_008",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.garage_main": {
+    "entity_id": "light.garage_main",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Garage Main Light",
+      "supported_color_modes": ["onoff"]
+    },
+    "last_changed": "2025-11-11T06:30:00.000Z",
+    "last_updated": "2025-11-11T06:30:00.000Z",
+    "context": {
+      "id": "ctx_009",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.entrance_porch": {
+    "entity_id": "light.entrance_porch",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Entrance Porch Light",
+      "supported_color_modes": ["brightness"],
+      "brightness": 150
+    },
+    "last_changed": "2025-11-11T18:30:00.000Z",
+    "last_updated": "2025-11-11T18:30:00.000Z",
+    "context": {
+      "id": "ctx_010",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.backyard_path": {
+    "entity_id": "light.backyard_path",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Backyard Path Lights",
+      "supported_color_modes": ["brightness"],
+      "brightness": 180
+    },
+    "last_changed": "2025-11-11T19:00:00.000Z",
+    "last_updated": "2025-11-11T19:00:00.000Z",
+    "context": {
+      "id": "ctx_011",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.kids_room_ceiling": {
+    "entity_id": "light.kids_room_ceiling",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Kids Room Ceiling Light",
+      "supported_color_modes": ["brightness", "rgb"],
+      "brightness": 0
+    },
+    "last_changed": "2025-11-11T20:00:00.000Z",
+    "last_updated": "2025-11-11T20:00:00.000Z",
+    "context": {
+      "id": "ctx_012",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.dining_room_chandelier": {
+    "entity_id": "light.dining_room_chandelier",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Dining Room Chandelier",
+      "supported_color_modes": ["brightness"],
+      "brightness": 200
+    },
+    "last_changed": "2025-11-11T18:00:00.000Z",
+    "last_updated": "2025-11-11T18:00:00.000Z",
+    "context": {
+      "id": "ctx_013",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.hallway_main": {
+    "entity_id": "light.hallway_main",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Hallway Main Light",
+      "supported_color_modes": ["brightness"],
+      "brightness": 128
+    },
+    "last_changed": "2025-11-11T19:30:00.000Z",
+    "last_updated": "2025-11-11T19:30:00.000Z",
+    "context": {
+      "id": "ctx_014",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "light.basement_stairs": {
+    "entity_id": "light.basement_stairs",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Basement Stairway Lights",
+      "supported_color_modes": ["brightness"],
+      "brightness": 0
+    },
+    "last_changed": "2025-11-11T12:00:00.000Z",
+    "last_updated": "2025-11-11T12:00:00.000Z",
+    "context": {
+      "id": "ctx_015",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "switch.living_room_fan": {
+    "entity_id": "switch.living_room_fan",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Living Room Ceiling Fan"
+    },
+    "last_changed": "2025-11-11T10:00:00.000Z",
+    "last_updated": "2025-11-11T10:00:00.000Z",
+    "context": {
+      "id": "ctx_016",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "switch.kitchen_exhaust": {
+    "entity_id": "switch.kitchen_exhaust",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Kitchen Exhaust Fan"
+    },
+    "last_changed": "2025-11-11T08:30:00.000Z",
+    "last_updated": "2025-11-11T08:30:00.000Z",
+    "context": {
+      "id": "ctx_017",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "switch.bedroom_humidifier": {
+    "entity_id": "switch.bedroom_humidifier",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Bedroom Humidifier"
+    },
+    "last_changed": "2025-11-11T22:00:00.000Z",
+    "last_updated": "2025-11-11T22:00:00.000Z",
+    "context": {
+      "id": "ctx_018",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "switch.bathroom_heater": {
+    "entity_id": "switch.bathroom_heater",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Bathroom Space Heater"
+    },
+    "last_changed": "2025-11-11T07:30:00.000Z",
+    "last_updated": "2025-11-11T07:30:00.000Z",
+    "context": {
+      "id": "ctx_019",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "switch.office_monitor": {
+    "entity_id": "switch.office_monitor",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Office Monitor Power"
+    },
+    "last_changed": "2025-11-11T09:00:00.000Z",
+    "last_updated": "2025-11-11T09:00:00.000Z",
+    "context": {
+      "id": "ctx_020",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "switch.garage_workbench": {
+    "entity_id": "switch.garage_workbench",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Garage Workbench Outlet"
+    },
+    "last_changed": "2025-11-11T17:00:00.000Z",
+    "last_updated": "2025-11-11T17:00:00.000Z",
+    "context": {
+      "id": "ctx_021",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "switch.backyard_fountain": {
+    "entity_id": "switch.backyard_fountain",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Backyard Fountain Pump"
+    },
+    "last_changed": "2025-11-11T08:00:00.000Z",
+    "last_updated": "2025-11-11T08:00:00.000Z",
+    "context": {
+      "id": "ctx_022",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "switch.laundry_room_dryer": {
+    "entity_id": "switch.laundry_room_dryer",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Laundry Room Dryer Outlet"
+    },
+    "last_changed": "2025-11-11T15:00:00.000Z",
+    "last_updated": "2025-11-11T15:00:00.000Z",
+    "context": {
+      "id": "ctx_023",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "climate.living_room_thermostat": {
+    "entity_id": "climate.living_room_thermostat",
+    "state": "heat",
+    "attributes": {
+      "friendly_name": "Living Room Thermostat",
+      "hvac_modes": ["off", "heat", "cool", "heat_cool"],
+      "current_temperature": 21.5,
+      "temperature": 22.0,
+      "hvac_action": "heating",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T10:15:00.000Z",
+    "last_updated": "2025-11-11T10:15:00.000Z",
+    "context": {
+      "id": "ctx_024",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "climate.bedroom_ac": {
+    "entity_id": "climate.bedroom_ac",
+    "state": "cool",
+    "attributes": {
+      "friendly_name": "Bedroom Air Conditioner",
+      "hvac_modes": ["off", "cool", "fan_only"],
+      "current_temperature": 23.0,
+      "temperature": 22.0,
+      "hvac_action": "cooling",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T22:00:00.000Z",
+    "last_updated": "2025-11-11T22:00:00.000Z",
+    "context": {
+      "id": "ctx_025",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "climate.office_heater": {
+    "entity_id": "climate.office_heater",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Office Space Heater",
+      "hvac_modes": ["off", "heat"],
+      "current_temperature": 20.0,
+      "temperature": 20.0,
+      "hvac_action": "idle",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T17:00:00.000Z",
+    "last_updated": "2025-11-11T17:00:00.000Z",
+    "context": {
+      "id": "ctx_026",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "lock.entrance_front_door": {
+    "entity_id": "lock.entrance_front_door",
+    "state": "locked",
+    "attributes": {
+      "friendly_name": "Entrance Front Door Lock"
+    },
+    "last_changed": "2025-11-11T23:00:00.000Z",
+    "last_updated": "2025-11-11T23:00:00.000Z",
+    "context": {
+      "id": "ctx_027",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "lock.garage_door": {
+    "entity_id": "lock.garage_door",
+    "state": "unlocked",
+    "attributes": {
+      "friendly_name": "Garage Door Lock"
+    },
+    "last_changed": "2025-11-11T07:00:00.000Z",
+    "last_updated": "2025-11-11T07:00:00.000Z",
+    "context": {
+      "id": "ctx_028",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "lock.backyard_gate": {
+    "entity_id": "lock.backyard_gate",
+    "state": "locked",
+    "attributes": {
+      "friendly_name": "Backyard Gate Lock"
+    },
+    "last_changed": "2025-11-11T20:00:00.000Z",
+    "last_updated": "2025-11-11T20:00:00.000Z",
+    "context": {
+      "id": "ctx_029",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "cover.living_room_blinds": {
+    "entity_id": "cover.living_room_blinds",
+    "state": "open",
+    "attributes": {
+      "friendly_name": "Living Room Window Blinds",
+      "device_class": "blind",
+      "supported_features": 15,
+      "current_position": 85
+    },
+    "last_changed": "2025-11-11T08:00:00.000Z",
+    "last_updated": "2025-11-11T08:00:00.000Z",
+    "context": {
+      "id": "ctx_030",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "cover.bedroom_curtains": {
+    "entity_id": "cover.bedroom_curtains",
+    "state": "closed",
+    "attributes": {
+      "friendly_name": "Bedroom Curtains",
+      "device_class": "curtain",
+      "supported_features": 15,
+      "current_position": 0
+    },
+    "last_changed": "2025-11-11T22:30:00.000Z",
+    "last_updated": "2025-11-11T22:30:00.000Z",
+    "context": {
+      "id": "ctx_031",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "cover.garage_door": {
+    "entity_id": "cover.garage_door",
+    "state": "closed",
+    "attributes": {
+      "friendly_name": "Garage Door",
+      "device_class": "garage",
+      "supported_features": 3
+    },
+    "last_changed": "2025-11-11T18:30:00.000Z",
+    "last_updated": "2025-11-11T18:30:00.000Z",
+    "context": {
+      "id": "ctx_032",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "cover.office_blinds": {
+    "entity_id": "cover.office_blinds",
+    "state": "open",
+    "attributes": {
+      "friendly_name": "Office Window Blinds",
+      "device_class": "blind",
+      "supported_features": 15,
+      "current_position": 60
+    },
+    "last_changed": "2025-11-11T09:00:00.000Z",
+    "last_updated": "2025-11-11T09:00:00.000Z",
+    "context": {
+      "id": "ctx_033",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "button.garage_door_opener": {
+    "entity_id": "button.garage_door_opener",
+    "state": "2025-11-11T07:30:00Z",
+    "attributes": {
+      "friendly_name": "Garage Door Opener Button",
+      "device_class": "restart"
+    },
+    "last_changed": "2025-11-11T07:30:00.000Z",
+    "last_updated": "2025-11-11T07:30:00.000Z",
+    "context": {
+      "id": "ctx_034",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "button.entrance_doorbell": {
+    "entity_id": "button.entrance_doorbell",
+    "state": "2025-11-11T14:25:00Z",
+    "attributes": {
+      "friendly_name": "Entrance Doorbell Button"
+    },
+    "last_changed": "2025-11-11T14:25:00.000Z",
+    "last_updated": "2025-11-11T14:25:00.000Z",
+    "context": {
+      "id": "ctx_035",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "button.bedroom_scene_goodnight": {
+    "entity_id": "button.bedroom_scene_goodnight",
+    "state": "2025-11-11T22:30:00Z",
+    "attributes": {
+      "friendly_name": "Bedroom Goodnight Scene Button"
+    },
+    "last_changed": "2025-11-11T22:30:00.000Z",
+    "last_updated": "2025-11-11T22:30:00.000Z",
+    "context": {
+      "id": "ctx_036",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "camera.entrance_doorbell": {
+    "entity_id": "camera.entrance_doorbell",
+    "state": "idle",
+    "attributes": {
+      "friendly_name": "Entrance Doorbell Camera",
+      "entity_picture": "/api/camera_proxy/camera.entrance_doorbell",
+      "supported_features": 1
+    },
+    "last_changed": "2025-11-11T00:00:00.000Z",
+    "last_updated": "2025-11-11T00:00:00.000Z",
+    "context": {
+      "id": "ctx_037",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "camera.backyard_patio": {
+    "entity_id": "camera.backyard_patio",
+    "state": "idle",
+    "attributes": {
+      "friendly_name": "Backyard Patio Camera",
+      "entity_picture": "/api/camera_proxy/camera.backyard_patio",
+      "supported_features": 1
+    },
+    "last_changed": "2025-11-11T00:00:00.000Z",
+    "last_updated": "2025-11-11T00:00:00.000Z",
+    "context": {
+      "id": "ctx_038",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "camera.garage_interior": {
+    "entity_id": "camera.garage_interior",
+    "state": "idle",
+    "attributes": {
+      "friendly_name": "Garage Interior Camera",
+      "entity_picture": "/api/camera_proxy/camera.garage_interior",
+      "supported_features": 1
+    },
+    "last_changed": "2025-11-11T00:00:00.000Z",
+    "last_updated": "2025-11-11T00:00:00.000Z",
+    "context": {
+      "id": "ctx_039",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.living_room_temperature": {
+    "entity_id": "sensor.living_room_temperature",
+    "state": "21.5",
+    "attributes": {
+      "friendly_name": "Living Room Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T10:35:00.000Z",
+    "last_updated": "2025-11-11T10:35:00.000Z",
+    "context": {
+      "id": "ctx_040",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.living_room_humidity": {
+    "entity_id": "sensor.living_room_humidity",
+    "state": "55",
+    "attributes": {
+      "friendly_name": "Living Room Humidity",
+      "device_class": "humidity",
+      "unit_of_measurement": "%"
+    },
+    "last_changed": "2025-11-11T10:30:00.000Z",
+    "last_updated": "2025-11-11T10:30:00.000Z",
+    "context": {
+      "id": "ctx_041",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.kitchen_temperature": {
+    "entity_id": "sensor.kitchen_temperature",
+    "state": "22.3",
+    "attributes": {
+      "friendly_name": "Kitchen Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T10:32:00.000Z",
+    "last_updated": "2025-11-11T10:32:00.000Z",
+    "context": {
+      "id": "ctx_042",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.bedroom_temperature": {
+    "entity_id": "sensor.bedroom_temperature",
+    "state": "20.1",
+    "attributes": {
+      "friendly_name": "Bedroom Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T22:35:00.000Z",
+    "last_updated": "2025-11-11T22:35:00.000Z",
+    "context": {
+      "id": "ctx_043",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.bedroom_humidity": {
+    "entity_id": "sensor.bedroom_humidity",
+    "state": "62",
+    "attributes": {
+      "friendly_name": "Bedroom Humidity",
+      "device_class": "humidity",
+      "unit_of_measurement": "%"
+    },
+    "last_changed": "2025-11-11T22:30:00.000Z",
+    "last_updated": "2025-11-11T22:30:00.000Z",
+    "context": {
+      "id": "ctx_044",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.bathroom_humidity": {
+    "entity_id": "sensor.bathroom_humidity",
+    "state": "78",
+    "attributes": {
+      "friendly_name": "Bathroom Humidity",
+      "device_class": "humidity",
+      "unit_of_measurement": "%"
+    },
+    "last_changed": "2025-11-11T07:45:00.000Z",
+    "last_updated": "2025-11-11T07:45:00.000Z",
+    "context": {
+      "id": "ctx_045",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.office_temperature": {
+    "entity_id": "sensor.office_temperature",
+    "state": "20.0",
+    "attributes": {
+      "friendly_name": "Office Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T10:28:00.000Z",
+    "last_updated": "2025-11-11T10:28:00.000Z",
+    "context": {
+      "id": "ctx_046",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.garage_temperature": {
+    "entity_id": "sensor.garage_temperature",
+    "state": "15.5",
+    "attributes": {
+      "friendly_name": "Garage Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T10:20:00.000Z",
+    "last_updated": "2025-11-11T10:20:00.000Z",
+    "context": {
+      "id": "ctx_047",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.entrance_motion": {
+    "entity_id": "sensor.entrance_motion",
+    "state": "off",
+    "attributes": {
+      "friendly_name": "Entrance Motion Sensor",
+      "device_class": "motion"
+    },
+    "last_changed": "2025-11-11T09:15:00.000Z",
+    "last_updated": "2025-11-11T09:15:00.000Z",
+    "context": {
+      "id": "ctx_048",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.backyard_temperature": {
+    "entity_id": "sensor.backyard_temperature",
+    "state": "12.8",
+    "attributes": {
+      "friendly_name": "Backyard Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T10:40:00.000Z",
+    "last_updated": "2025-11-11T10:40:00.000Z",
+    "context": {
+      "id": "ctx_049",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.backyard_illuminance": {
+    "entity_id": "sensor.backyard_illuminance",
+    "state": "45000",
+    "attributes": {
+      "friendly_name": "Backyard Light Level",
+      "device_class": "illuminance",
+      "unit_of_measurement": "lx"
+    },
+    "last_changed": "2025-11-11T10:35:00.000Z",
+    "last_updated": "2025-11-11T10:35:00.000Z",
+    "context": {
+      "id": "ctx_050",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.laundry_room_humidity": {
+    "entity_id": "sensor.laundry_room_humidity",
+    "state": "68",
+    "attributes": {
+      "friendly_name": "Laundry Room Humidity",
+      "device_class": "humidity",
+      "unit_of_measurement": "%"
+    },
+    "last_changed": "2025-11-11T15:30:00.000Z",
+    "last_updated": "2025-11-11T15:30:00.000Z",
+    "context": {
+      "id": "ctx_051",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.kids_room_temperature": {
+    "entity_id": "sensor.kids_room_temperature",
+    "state": "21.0",
+    "attributes": {
+      "friendly_name": "Kids Room Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T20:15:00.000Z",
+    "last_updated": "2025-11-11T20:15:00.000Z",
+    "context": {
+      "id": "ctx_052",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.basement_humidity": {
+    "entity_id": "sensor.basement_humidity",
+    "state": "72",
+    "attributes": {
+      "friendly_name": "Basement Humidity",
+      "device_class": "humidity",
+      "unit_of_measurement": "%"
+    },
+    "last_changed": "2025-11-11T10:00:00.000Z",
+    "last_updated": "2025-11-11T10:00:00.000Z",
+    "context": {
+      "id": "ctx_053",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.hallway_motion": {
+    "entity_id": "sensor.hallway_motion",
+    "state": "on",
+    "attributes": {
+      "friendly_name": "Hallway Motion Sensor",
+      "device_class": "motion"
+    },
+    "last_changed": "2025-11-11T10:38:00.000Z",
+    "last_updated": "2025-11-11T10:38:00.000Z",
+    "context": {
+      "id": "ctx_054",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.balcony_temperature": {
+    "entity_id": "sensor.balcony_temperature",
+    "state": "13.2",
+    "attributes": {
+      "friendly_name": "Balcony Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T10:42:00.000Z",
+    "last_updated": "2025-11-11T10:42:00.000Z",
+    "context": {
+      "id": "ctx_055",
+      "parent_id": null,
+      "user_id": null
+    }
+  },
+  "sensor.guest_room_temperature": {
+    "entity_id": "sensor.guest_room_temperature",
+    "state": "19.5",
+    "attributes": {
+      "friendly_name": "Guest Room Temperature",
+      "device_class": "temperature",
+      "unit_of_measurement": "°C"
+    },
+    "last_changed": "2025-11-11T10:25:00.000Z",
+    "last_updated": "2025-11-11T10:25:00.000Z",
+    "context": {
+      "id": "ctx_056",
+      "parent_id": null,
+      "user_id": null
+    }
+  }
+}
