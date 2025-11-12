@@ -1,6 +1,6 @@
 {
   "name": "noviks-dashboard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Novik's Dashboard - A beautiful, modern Home Assistant dashboard with auto-generated views",
   "main": "dist/noviks-dashboard.js",
   "type": "module",
