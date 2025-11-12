@@ -1,9 +1,6 @@
 import {css, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
-import {literal} from 'lit/static-html.js';
 import Tile from './tile';
 
-@customElement('novik-cover')
 export default class Cover extends Tile {
   private static readonly FEATURES = {
     SUPPORT_OPEN: 1,
@@ -18,7 +15,6 @@ export default class Cover extends Tile {
 
   static readonly domain = 'cover';
   static readonly order = 4;
-  static readonly tag = literal`novik-cover`;
   static readonly title = 'Covers';
   static readonly icon = 'mdi:window-shutter';
 
@@ -201,11 +197,5 @@ export default class Cover extends Tile {
           : null}
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'novik-cover': Cover;
   }
 }

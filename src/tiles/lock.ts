@@ -1,13 +1,9 @@
 import {css, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
-import {literal} from 'lit/static-html.js';
 import Tile from './tile';
 
-@customElement('novik-lock')
 export default class Lock extends Tile {
   static readonly domain = 'lock';
   static readonly order = 5;
-  static readonly tag = literal`novik-lock`;
   static readonly title = 'Locks';
   static readonly icon = 'mdi:lock';
 
@@ -229,11 +225,5 @@ export default class Lock extends Tile {
           : null}
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'novik-lock': Lock;
   }
 }

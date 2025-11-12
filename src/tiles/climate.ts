@@ -1,13 +1,9 @@
 import {css, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
-import {literal} from 'lit/static-html.js';
 import Tile from './tile';
 
-@customElement('novik-climate')
 export default class Climate extends Tile {
   static readonly domain = 'climate';
   static readonly order = 2;
-  static readonly tag = literal`novik-climate`;
   static readonly title = 'Climate';
   static readonly icon = 'mdi:thermostat';
 
@@ -242,11 +238,5 @@ export default class Climate extends Tile {
         ${this.renderTemperature()}
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'novik-climate': Climate;
   }
 }

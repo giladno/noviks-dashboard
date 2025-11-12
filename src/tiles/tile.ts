@@ -4,6 +4,12 @@ import {property, state} from 'lit/decorators.js';
 import type {EntityRegistryEntry, HomeAssistant} from 'types/ha';
 
 export default class Tile extends LitElement {
+  static domain = '';
+  static tag = '';
+  static order = 0;
+  static title = '';
+  static icon = '';
+
   static styles: CSSResultGroup = css`
     :host {
       display: block;

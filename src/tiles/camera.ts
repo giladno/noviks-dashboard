@@ -1,13 +1,10 @@
 import {css, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
-import {literal} from 'lit/static-html.js';
+import {property} from 'lit/decorators.js';
 import Tile from './tile';
 
-@customElement('novik-camera')
 export default class Camera extends Tile {
   static readonly domain = 'camera';
   static readonly order = 7;
-  static readonly tag = literal`novik-camera`;
   static readonly title = 'Cameras';
   static readonly icon = 'mdi:camera';
 
@@ -129,11 +126,5 @@ export default class Camera extends Tile {
             `}
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'novik-camera': Camera;
   }
 }

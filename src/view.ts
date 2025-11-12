@@ -1,21 +1,26 @@
 import type {HassEntity} from 'home-assistant-js-websocket';
 import {css, LitElement} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {property} from 'lit/decorators.js';
 import {repeat} from 'lit/directives/repeat.js';
-import {html, StaticValue} from 'lit/static-html.js';
+import {html, unsafeStatic} from 'lit/static-html.js';
 import type {AreaRegistryEntry, EntityRegistryEntry, HomeAssistant, LovelaceCardConfig} from 'types/ha';
 import Settings from './settings';
 import Tile from './tiles/tile';
 
-export const tiles = new Map<string, Tile & {domain: string; order: number; tag: StaticValue}>(
+export const tiles = new Map<string, typeof Tile>(
   Object.values(import.meta.glob('./tiles/*.ts', {eager: true}))
     .map((module: any) => module.default.domain && [module.default.domain, module.default])
     .filter(Boolean)
     .sort((a, b) => a[1].order! - b[1].order!)
 );
 
-@customElement('novik-view')
-export default class View extends LitElement {
+for (const [domain, tile] of tiles) {
+  tile.tag = `novik-${domain}`;
+  customElements.define(tile.tag, tile);
+}
+
+export class View extends LitElement {
+  static readonly tag = 'novik-view';
   static styles = css`
     :host {
       display: block;
@@ -483,7 +488,7 @@ export default class View extends LitElement {
           entities,
           (entity) => entity.entity_id,
           // eslint-disable-next-line lit/binding-positions, lit/no-invalid-html
-          (entity) => html`<${tiles.get(entity.domain as string)!.tag} .hass=${this.hass} .entity=${entity} .dark=${this.dark} />`
+          (entity) => html`<${unsafeStatic(tiles.get(entity.domain as string)!.tag)} .hass=${this.hass} .entity=${entity} .dark=${this.dark} />`
         )}
       </div>`;
     }
@@ -493,7 +498,7 @@ export default class View extends LitElement {
         entities,
         (entity) => entity.entity_id,
         // eslint-disable-next-line lit/binding-positions, lit/no-invalid-html
-        (entity) => html`<${tiles.get(entity.domain as string)!.tag} .hass=${this.hass} .entity=${entity} .dark=${this.dark} />`
+        (entity) => html`<${unsafeStatic(tiles.get(entity.domain as string)!.tag)} .hass=${this.hass} .entity=${entity} .dark=${this.dark} />`
       )}
     </div>`;
   }
@@ -623,9 +628,11 @@ export default class View extends LitElement {
   }
 }
 
+customElements.define(View.tag, View);
+
 declare global {
   interface HTMLElementTagNameMap {
-    'novik-view': View;
+    [View.tag]: View;
   }
   interface HASSDomEvents {
     'location-changed': {

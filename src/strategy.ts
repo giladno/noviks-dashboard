@@ -1,7 +1,6 @@
-import {customElement} from 'lit/decorators.js';
 import type {AreaRegistryEntry, DeviceRegistryEntry, EntityRegistryEntry, HomeAssistant, LovelaceCardConfig} from 'types/ha';
 import {NovikSettings} from 'types/settings';
-import {tiles} from './view';
+import {View, tiles} from './view';
 
 function entitiesCompareFn(a: EntityRegistryEntry, b: EntityRegistryEntry): number {
   return (
@@ -61,8 +60,9 @@ function groupEntities(entities: Map<string, EntityRegistryEntry[]> | EntityRegi
   return groups;
 }
 
-@customElement('ll-strategy-dashboard-novik-strategy')
 export class Strategy extends HTMLElement {
+  static readonly tag = `ll-strategy-dashboard-novik-strategy`;
+
   public static async generate(_config: Record<string, any>, hass: HomeAssistant) {
     const [config, areaRegistry, deviceRegistry, entityRegistry] = await Promise.all([
       hass.callWS<any>({type: 'lovelace/config', url_path: hass.panelUrl}).catch(() => ({})),
@@ -125,7 +125,7 @@ export class Strategy extends HTMLElement {
         panel: true,
         cards: [
           {
-            type: 'custom:novik-view',
+            type: `custom:${View.tag}`,
             panelType: 'dashboard',
             settings,
             registry,
@@ -155,7 +155,7 @@ export class Strategy extends HTMLElement {
         subview: true,
         cards: [
           {
-            type: 'custom:novik-view',
+            type: `custom:${View.tag}`,
             panelType: 'domain',
             settings,
             registry,
@@ -189,7 +189,7 @@ export class Strategy extends HTMLElement {
         subview: true,
         cards: [
           {
-            type: 'custom:novik-view',
+            type: `custom:${View.tag}`,
             panelType: 'area',
             settings,
             registry,
@@ -203,3 +203,5 @@ export class Strategy extends HTMLElement {
     return {views};
   }
 }
+
+customElements.define(Strategy.tag, Strategy);

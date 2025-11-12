@@ -32,7 +32,7 @@ export interface LovelaceCardConfig {
   panelType: 'dashboard' | 'area' | 'domain';
   registry: Registry;
   settings: NovikSettings;
-  type: 'custom:novik-view';
+  type: string;
   [key: string]: any;
 }
 

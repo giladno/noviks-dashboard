@@ -1,13 +1,9 @@
 import {css, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
-import {literal} from 'lit/static-html.js';
 import Tile from './tile';
 
-@customElement('novik-switch')
 export default class Switch extends Tile {
   static readonly domain = 'switch';
   static readonly order = 3;
-  static readonly tag = literal`novik-switch`;
   static readonly title = 'Switches';
   static readonly icon = 'mdi:toggle-switch';
 
@@ -72,11 +68,5 @@ export default class Switch extends Tile {
         </div>
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'novik-switch': Switch;
   }
 }

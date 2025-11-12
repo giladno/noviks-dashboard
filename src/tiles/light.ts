@@ -1,13 +1,9 @@
 import {css, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
-import {literal} from 'lit/static-html.js';
 import Tile from './tile';
 
-@customElement('novik-light')
 export default class Light extends Tile {
   static readonly domain = 'light';
   static readonly order = 1;
-  static readonly tag = literal`novik-light`;
   static readonly title = 'Lights';
   static readonly icon = 'mdi:lightbulb';
 
@@ -79,11 +75,5 @@ export default class Light extends Tile {
         </div>
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'novik-light': Light;
   }
 }

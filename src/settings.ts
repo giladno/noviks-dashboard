@@ -1,12 +1,12 @@
 import {css, html, LitElement, PropertyValues} from 'lit';
-import {customElement, property, state} from 'lit/decorators.js';
+import {property, state} from 'lit/decorators.js';
 import {repeat} from 'lit/directives/repeat.js';
 import type {HomeAssistant} from 'types/ha';
 import {NovikSettings, Registry} from 'types/settings';
 import {tiles} from './view';
 
-@customElement('novik-settings')
 export default class Settings extends LitElement {
+  static readonly tag = 'novik-settings';
   static styles = css`
     :host {
       display: block;
@@ -1206,7 +1206,7 @@ export default class Settings extends LitElement {
   }
 
   public static show({hass, registry, settings}: {hass: HomeAssistant; registry: Registry; settings: NovikSettings}) {
-    const el = document.createElement('novik-settings');
+    const el = document.createElement(Settings.tag);
     el.hass = hass;
     el.registry = registry;
     el.settings = {
@@ -1222,8 +1222,10 @@ export default class Settings extends LitElement {
   }
 }
 
+customElements.define(Settings.tag, Settings);
+
 declare global {
   interface HTMLElementTagNameMap {
-    'novik-settings': Settings;
+    [Settings.tag]: Settings;
   }
 }

@@ -3,6 +3,7 @@ import {LitElement, css, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import type {HomeAssistant} from 'types/ha';
 import {Strategy} from './strategy';
+import {View} from './view';
 
 const data = new Map(
   Object.entries(import.meta.glob('./test/*.json', {eager: true})).map(([path, module]) => [
@@ -69,7 +70,7 @@ const {views} = await Strategy.generate({}, hass);
 
 function loadView() {
   const path = location.pathname.split('/').pop() || 'home';
-  const app = document.createElement('novik-view');
+  const app = document.createElement(View.tag);
   app.id = 'app';
   app.setConfig(views.find((v) => v.path === path)!.cards[0]);
   app.hass = hass;

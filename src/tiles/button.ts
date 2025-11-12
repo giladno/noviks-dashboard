@@ -1,13 +1,9 @@
 import {css, html} from 'lit';
-import {customElement} from 'lit/decorators.js';
-import {literal} from 'lit/static-html.js';
 import Tile from './tile';
 
-@customElement('novik-button')
 export default class Button extends Tile {
   static readonly domain = 'button';
   static readonly order = 6;
-  static readonly tag = literal`novik-button`;
   static readonly title = 'Buttons';
   static readonly icon = 'mdi:gesture-tap-button';
 
@@ -78,11 +74,5 @@ export default class Button extends Tile {
         </div>
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'novik-button': Button;
   }
 }
