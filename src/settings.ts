@@ -27,6 +27,7 @@ export default class Settings extends LitElement {
       background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(4px);
       animation: fadeIn 0.2s ease;
+      pointer-events: none;
     }
 
     :host([dark]) .overlay {
@@ -47,6 +48,8 @@ export default class Settings extends LitElement {
       display: flex;
       flex-direction: column;
       animation: slideIn 0.3s ease;
+      pointer-events: auto;
+      overflow: hidden;
     }
 
     :host([dark]) .modal {
@@ -56,8 +59,8 @@ export default class Settings extends LitElement {
 
     .header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 16px;
       padding: 16px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       flex-shrink: 0;
@@ -71,7 +74,8 @@ export default class Settings extends LitElement {
       background: none;
       border: none;
       cursor: pointer;
-      padding: 8px;
+      padding: 20px;
+      margin: -12px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -197,7 +201,9 @@ export default class Settings extends LitElement {
     }
 
     h2 {
+      flex: 1;
       margin: 0;
+      padding: 0;
       font-size: 1.5rem;
       font-weight: 700;
       color: rgba(0, 0, 0, 0.87);
@@ -296,19 +302,10 @@ export default class Settings extends LitElement {
       padding: 12px;
       background: rgba(255, 255, 255, 0.5);
       border-radius: 8px;
-      transition: all 0.2s ease;
     }
 
     :host([dark]) .domain-item {
       background: rgba(255, 255, 255, 0.05);
-    }
-
-    .domain-item:hover {
-      background: rgba(255, 255, 255, 0.8);
-    }
-
-    :host([dark]) .domain-item:hover {
-      background: rgba(255, 255, 255, 0.1);
     }
 
     .domain-item ha-icon {
@@ -347,6 +344,15 @@ export default class Settings extends LitElement {
       color: rgba(255, 255, 255, 0.5);
     }
 
+    .checkbox-wrapper {
+      padding: 12px;
+      margin: -12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .checkbox {
       width: 20px;
       height: 20px;
@@ -357,6 +363,7 @@ export default class Settings extends LitElement {
       -moz-appearance: none;
       position: relative;
       transition: all 0.2s ease;
+      pointer-events: none;
     }
 
     :host(:not([dark])) .checkbox {
@@ -598,37 +605,48 @@ export default class Settings extends LitElement {
       padding: 12px;
       background: rgba(255, 255, 255, 0.5);
       border-radius: 8px;
-      transition: all 0.2s ease;
-      cursor: move;
       min-height: 44px;
+      -webkit-tap-highlight-color: transparent;
+      border: 2px solid transparent;
     }
 
     :host([dark]) .area-item {
       background: rgba(255, 255, 255, 0.05);
     }
 
-    .area-item:hover {
-      background: rgba(255, 255, 255, 0.8);
-      transform: scale(1.01);
-    }
-
-    :host([dark]) .area-item:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
     .area-item.dragging {
       opacity: 0.5;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
-    .area-item.drag-over {
-      border: 2px dashed #2196f3;
+    .area-item.drag-over-top {
+      box-shadow:
+        inset 0 3px 0 0 #2196f3,
+        0 -2px 8px rgba(33, 150, 243, 0.3);
+    }
+
+    .area-item.drag-over-bottom {
+      box-shadow:
+        inset 0 -3px 0 0 #2196f3,
+        0 2px 8px rgba(33, 150, 243, 0.3);
     }
 
     .drag-handle {
-      --mdc-icon-size: 20px;
-      color: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: move;
       touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      padding: 8px;
+      margin: -8px;
+      color: rgba(0, 0, 0, 0.3);
+    }
+
+    .drag-handle ha-icon {
+      --mdc-icon-size: 24px;
     }
 
     :host([dark]) .drag-handle {
@@ -799,7 +817,6 @@ export default class Settings extends LitElement {
 
       h2 {
         font-size: 1.25rem;
-        margin-bottom: 16px;
       }
 
       .setting-section {
@@ -908,14 +925,88 @@ export default class Settings extends LitElement {
     this.debouncedSave();
   }
 
-  private onDragOver(e: DragEvent) {
+  private onPointerDown(e: PointerEvent) {
+    if (e.button) return;
+
+    const dragHandle = e.composedPath().find((el) => el instanceof HTMLElement && el.classList?.contains('drag-handle')) as HTMLElement;
+    if (!dragHandle) return;
+
     e.preventDefault();
-    e.dataTransfer!.dropEffect = 'move';
+    e.stopPropagation();
+
+    const areaItem = dragHandle.closest('.area-item[data-index]') as HTMLElement;
+    if (!areaItem) return;
+
+    this.draggedAreaIndex = parseInt(areaItem.dataset.index!);
+
+    areaItem.style.transition = 'none';
+    areaItem.classList.add('dragging');
+
+    window.addEventListener('pointermove', this.onPointerMove);
+    window.addEventListener('pointerup', this.onPointerUp);
+    window.addEventListener('pointercancel', this.onPointerUp);
   }
 
-  private onDragEnd() {
+  private onPointerMove = (e: PointerEvent) => {
+    e.preventDefault();
+
+    const areaItems = Array.from(this.shadowRoot?.querySelectorAll('.area-item') || []);
+
+    areaItems.forEach((el) => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+
+    for (const [i, item] of areaItems.entries()) {
+      if (i === this.draggedAreaIndex) continue;
+      const rect = item.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) continue;
+      const midY = rect.top + rect.height / 2;
+      if (e.clientY < midY) {
+        item.classList.add('drag-over-top');
+        if (i) areaItems[i - 1].classList.add('drag-over-bottom');
+      } else {
+        item.classList.add('drag-over-bottom');
+        if (i < areaItems.length - 1) areaItems[i + 1].classList.add('drag-over-top');
+      }
+      break;
+    }
+  };
+
+  private onPointerUp = (e: PointerEvent) => {
+    e.preventDefault();
+
+    window.removeEventListener('pointermove', this.onPointerMove);
+    window.removeEventListener('pointerup', this.onPointerUp);
+    window.removeEventListener('pointercancel', this.onPointerUp);
+
+    const areaItems = Array.from(this.shadowRoot?.querySelectorAll('.area-item') || []);
+
+    areaItems.forEach((el) => {
+      el.classList.remove('drag-over-top', 'drag-over-bottom', 'dragging');
+      el.style.transition = '';
+    });
+
+    for (const [i, item] of areaItems.entries()) {
+      if (i === this.draggedAreaIndex) continue;
+      const rect = item.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) continue;
+      const midY = rect.top + rect.height / 2;
+      const dropIndex = e.clientY < midY ? i : i + 1;
+      if (dropIndex === this.draggedAreaIndex) break;
+      const areas = [...this.areas];
+      if (dropIndex < this.draggedAreaIndex!) {
+        const [area] = areas.splice(this.draggedAreaIndex!, 1);
+        areas.splice(dropIndex, 0, area);
+      } else {
+        areas.splice(dropIndex, 0, areas[this.draggedAreaIndex!]);
+        areas.splice(this.draggedAreaIndex!, 1);
+      }
+      this.settings.area_order = areas.map((a) => a.area_id);
+      this.requestUpdate();
+      this.debouncedSave();
+      break;
+    }
+
     this.draggedAreaIndex = null;
-  }
+  };
 
   private debouncedSave() {
     clearTimeout(this.saveTimeout || undefined);
@@ -924,11 +1015,7 @@ export default class Settings extends LitElement {
 
   private async save() {
     const config = await this.hass.callWS<any>({type: 'lovelace/config', url_path: this.hass.panelUrl});
-    await this.hass.callWS({
-      type: 'lovelace/config/save',
-      url_path: this.hass.panelUrl,
-      config: {...config, settings: this.settings},
-    });
+    await this.hass.callWS({type: 'lovelace/config/save', url_path: this.hass.panelUrl, config: {...config, settings: this.settings}});
   }
 
   private renderGeneral() {
@@ -961,21 +1048,27 @@ export default class Settings extends LitElement {
           (tile) => tile.domain,
           (tile) => html`
             <div class="domain-item">
-              <label for="domain-${tile.domain}" style="display: contents;">
-                <ha-icon icon="${tile.icon}"></ha-icon>
-                <div class="domain-info">
-                  <div class="domain-name">${tile.title}</div>
-                  <div class="domain-key">${this.domains.get(tile.domain) ?? '-'}</div>
-                </div>
-              </label>
-              <input
-                type="checkbox"
-                class="checkbox"
-                .checked=${!this.settings.excluded_domains.includes(tile.domain)}
-                @change=${() => this.toggleDomain(tile.domain)}
-                id="domain-${tile.domain}"
+              <ha-icon icon="${tile.icon}"></ha-icon>
+              <div class="domain-info">
+                <div class="domain-name">${tile.title}</div>
+                <div class="domain-key">${this.domains.get(tile.domain) ?? '-'}</div>
+              </div>
+              <div
+                class="checkbox-wrapper"
+                @click=${() => this.toggleDomain(tile.domain)}
+                @keydown=${(e: KeyboardEvent) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.toggleDomain(tile.domain);
+                  }
+                }}
+                tabindex="0"
+                role="checkbox"
+                aria-checked=${!this.settings.excluded_domains.includes(tile.domain)}
                 aria-label="Include ${tile.title}"
-              />
+              >
+                <input type="checkbox" class="checkbox" .checked=${!this.settings.excluded_domains.includes(tile.domain)} id="domain-${tile.domain}" />
+              </div>
             </div>
           `
         )}
@@ -1087,30 +1180,10 @@ export default class Settings extends LitElement {
           (area, index) => {
             const hidden = this.settings.hidden_areas!.includes(area.area_id);
             return html`
-              <div
-                class="area-item ${this.draggedAreaIndex === index ? 'dragging' : ''}"
-                draggable="true"
-                @dragstart=${(e: DragEvent) => {
-                  this.draggedAreaIndex = index;
-                  e.dataTransfer!.effectAllowed = 'move';
-                }}
-                @dragover=${this.onDragOver}
-                @drop=${(e: DragEvent) => {
-                  e.preventDefault();
-                  if (this.draggedAreaIndex === null) return;
-
-                  const sortedAreas = this.areas;
-                  const [draggedArea] = sortedAreas.splice(this.draggedAreaIndex, 1);
-                  sortedAreas.splice(index, 0, draggedArea);
-
-                  this.settings.area_order = sortedAreas.map((a) => a.area_id);
-                  this.draggedAreaIndex = null;
-                  this.requestUpdate();
-                  this.debouncedSave();
-                }}
-                @dragend=${this.onDragEnd}
-              >
-                <ha-icon class="drag-handle" icon="mdi:drag-vertical"></ha-icon>
+              <div class="area-item ${this.draggedAreaIndex === index ? 'dragging' : ''}" data-index=${index} @pointerdown=${this.onPointerDown}>
+                <div class="drag-handle">
+                  <ha-icon icon="mdi:drag-vertical"></ha-icon>
+                </div>
                 <ha-icon class="area-icon" .icon=${area.icon || 'mdi:home'}></ha-icon>
                 <div class="area-name">${area.name}</div>
                 <ha-icon
@@ -1161,43 +1234,42 @@ export default class Settings extends LitElement {
 
   render() {
     return html`
-      <div class="overlay">
-        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
-          <div class="header">
-            <h2 id="settings-title">Settings</h2>
-            <button class="close-button" @click=${this.remove} aria-label="Close settings" tabindex="0">
-              <ha-icon icon="mdi:close"></ha-icon>
-            </button>
-          </div>
-          <div class="content">
-            ${this.renderSection('general', 'General', 'mdi:cog', this.renderGeneral())}
-            ${this.renderSection('areas', 'Area Ordering', 'mdi:sort', this.renderAreas())}
-            ${this.renderSection('domains', 'Available Domains', 'mdi:apps', this.renderDomains())}
-            ${this.renderSection(
-              'excluded',
-              'Excluded Entities',
-              'mdi:eye-off',
-              this.renderEntities({
-                sectionId: 'excluded',
-                placeholder: 'Search entities to exclude...',
-                selected: this.settings.excluded_entities,
-              })
-            )}
-            ${this.renderSection(
-              'favorites',
-              'Favorites',
-              'mdi:star',
-              this.renderEntities({
-                sectionId: 'favorites',
-                placeholder: 'Search entities to add as favorites...',
-                selected: this.settings.favorites,
-              })
-            )}
-            <div class="copyright">
-              <div>&copy; ${new Date().getFullYear()} Novik's Dashboard</div>
-              <div style="margin-top: 4px;">
-                <a href="#" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-              </div>
+      <div class="overlay"></div>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <div class="header">
+          <h2 id="settings-title">Settings</h2>
+          <button class="close-button" @click=${this.remove} aria-label="Close settings" tabindex="0">
+            <ha-icon icon="mdi:close"></ha-icon>
+          </button>
+        </div>
+        <div class="content">
+          ${this.renderSection('general', 'General', 'mdi:cog', this.renderGeneral())}
+          ${this.renderSection('areas', 'Area Ordering', 'mdi:sort', this.renderAreas())}
+          ${this.renderSection('domains', 'Available Domains', 'mdi:apps', this.renderDomains())}
+          ${this.renderSection(
+            'excluded',
+            'Excluded Entities',
+            'mdi:eye-off',
+            this.renderEntities({
+              sectionId: 'excluded',
+              placeholder: 'Search entities to exclude...',
+              selected: this.settings.excluded_entities,
+            })
+          )}
+          ${this.renderSection(
+            'favorites',
+            'Favorites',
+            'mdi:star',
+            this.renderEntities({
+              sectionId: 'favorites',
+              placeholder: 'Search entities to add as favorites...',
+              selected: this.settings.favorites,
+            })
+          )}
+          <div class="copyright">
+            <div>&copy; ${new Date().getFullYear()} Novik's Dashboard</div>
+            <div style="margin-top: 4px;">
+              <a href="#" target="_blank" rel="noopener noreferrer">View on GitHub</a>
             </div>
           </div>
         </div>
@@ -1206,7 +1278,7 @@ export default class Settings extends LitElement {
   }
 
   public static show({hass, registry, settings}: {hass: HomeAssistant; registry: Registry; settings: NovikSettings}) {
-    const el = document.createElement(Settings.tag);
+    const el = document.createElement(Settings.tag) as Settings;
     el.hass = hass;
     el.registry = registry;
     el.settings = {

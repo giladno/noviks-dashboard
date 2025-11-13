@@ -70,7 +70,7 @@ const {views} = await Strategy.generate({}, hass);
 
 function loadView() {
   const path = location.pathname.split('/').pop() || 'home';
-  const app = document.createElement(View.tag);
+  const app = document.createElement(View.tag) as View;
   app.id = 'app';
   app.setConfig(views.find((v) => v.path === path)!.cards[0]);
   app.hass = hass;
