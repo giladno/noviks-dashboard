@@ -148,6 +148,7 @@ export default class Climate extends Tile {
         gap: 12px;
         margin-top: 8px;
         padding-top: 12px;
+        padding-bottom: 4px;
         border-top: 1px solid rgba(0, 0, 0, 0.1);
       }
 
@@ -169,7 +170,18 @@ export default class Climate extends Tile {
         letter-spacing: 0.5px;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
+        color: var(--tile-text-light);
+      }
+
+      :host([dark]) .control-label {
+        color: var(--tile-text-dark);
+      }
+
+      .control-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
 
       .control-label ha-icon {
@@ -222,6 +234,11 @@ export default class Climate extends Tile {
         font-weight: 600;
         min-width: 80px;
         text-align: center;
+        color: var(--tile-text-light);
+      }
+
+      :host([dark]) .temp-display {
+        color: var(--tile-text-dark);
       }
 
       .mode-buttons,
@@ -245,11 +262,13 @@ export default class Climate extends Tile {
         background: rgba(0, 0, 0, 0.1);
         font-size: 12px;
         font-weight: 500;
+        color: var(--tile-text-light);
       }
 
       :host([dark]) .mode-button,
       :host([dark]) .fan-button {
         background: rgba(255, 255, 255, 0.1);
+        color: var(--tile-text-dark);
       }
 
       .mode-button:hover,
@@ -284,44 +303,63 @@ export default class Climate extends Tile {
       }
 
       .more-info-button {
-        margin-top: 4px;
-        padding: 6px 12px;
-        border-radius: 6px;
+        padding: 8px;
+        min-width: 44px;
+        min-height: 44px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 4px;
         cursor: pointer;
         transition: all 0.2s ease;
-        background: rgba(0, 0, 0, 0.05);
-        font-size: 11px;
-        font-weight: 500;
+        background: transparent;
+        color: var(--tile-text-light);
+        opacity: 0.6;
       }
 
       :host([dark]) .more-info-button {
-        background: rgba(255, 255, 255, 0.05);
+        color: var(--tile-text-dark);
       }
 
       .more-info-button:hover {
         background: rgba(0, 0, 0, 0.1);
-        transform: scale(1.01);
+        opacity: 1;
       }
 
       :host([dark]) .more-info-button:hover {
         background: rgba(255, 255, 255, 0.1);
       }
 
+      .more-info-button:active {
+        transform: scale(0.95);
+      }
+
       .more-info-button ha-icon {
-        --mdc-icon-size: 14px;
+        --mdc-icon-size: 18px;
       }
 
       ha-icon.tile-icon {
         cursor: pointer;
       }
+
+      /* When expanded, span 2 grid columns to have the width of 2 tiles + 1 gap */
+      :host([expanded]) {
+        grid-column: span 2;
+      }
+
+      :host {
+        display: block;
+        contain: layout style;
+      }
     `,
   ];
 
   @state() private expanded = false;
+
+  updated(changedProps: any) {
+    super.updated(changedProps);
+    if (changedProps.has('expanded')) this.toggleAttribute('expanded', this.expanded);
+  }
 
   get hvacMode(): string {
     return this.state?.state || 'unavailable';
@@ -549,9 +587,14 @@ export default class Climate extends Tile {
         ${(this.supportsTargetTemperature || this.supportsTargetTemperatureRange) && this.targetTemperature !== null
           ? html`
               <div class="control-section">
-                <div class="control-label">
-                  <ha-icon icon="mdi:thermometer"></ha-icon>
-                  <span>Temperature</span>
+                <div class="control-header">
+                  <div class="control-label">
+                    <ha-icon icon="mdi:thermometer"></ha-icon>
+                    <span>Temperature</span>
+                  </div>
+                  <div class="more-info-button" @click=${this.showMoreInfo} @keydown=${this.showMoreInfo} tabindex="-1" role="button" aria-label="More info">
+                    <ha-icon icon="mdi:information-outline"></ha-icon>
+                  </div>
                 </div>
                 <div class="temperature-control">
                   <div
@@ -637,10 +680,6 @@ export default class Climate extends Tile {
               </div>
             `
           : null}
-        <div class="more-info-button" @click=${this.showMoreInfo} @keydown=${this.showMoreInfo} tabindex="-1" role="button" aria-label="More info">
-          <ha-icon icon="mdi:information-outline"></ha-icon>
-          <span>More Info</span>
-        </div>
       </div>
     `;
   }
