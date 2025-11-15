@@ -19,14 +19,6 @@ export default class Sensor extends Tile {
         color: rgba(255, 59, 48, 0.6);
       }
 
-      /* Override info layout for sensor - horizontal instead of vertical */
-      .info {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-      }
-
       /* Temperature sensors - warm orange/red tones */
       .tile.temperature ha-icon {
         color: #ff6b35;
@@ -97,29 +89,15 @@ export default class Sensor extends Tile {
         color: rgba(255, 255, 255, 0.6);
       }
 
-      .value {
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 1;
+      .details {
         display: flex;
         align-items: baseline;
         gap: 4px;
-        white-space: nowrap;
-        flex-shrink: 0;
       }
 
       .unit {
-        font-size: 12px;
-        font-weight: 400;
+        font-size: 11px;
         opacity: 0.7;
-      }
-
-      :host([dark]) .value {
-        color: var(--tile-text-dark);
-      }
-
-      :host(:not([dark])) .value {
-        color: var(--tile-text-light);
       }
     `,
   ];
@@ -230,7 +208,7 @@ export default class Sensor extends Tile {
         <ha-icon icon="${this.icon}"></ha-icon>
         <div class="info">
           <div class="name">${this.displayName}</div>
-          <div class="value">${this.value} ${this.unit && html`<span class="unit">${this.unit}</span>`}</div>
+          ${!unavailable ? html`<div class="details">${this.value}${this.unit ? html`<span class="unit">${this.unit}</span>` : null}</div>` : null}
         </div>
       </div>
     `;

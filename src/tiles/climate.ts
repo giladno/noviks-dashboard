@@ -1,7 +1,19 @@
 import {css, html} from 'lit';
+import {state} from 'lit/decorators.js';
+import {repeat} from 'lit/directives/repeat.js';
 import Tile from './tile';
 
 export default class Climate extends Tile {
+  private static readonly FEATURES = {
+    SUPPORT_TARGET_TEMPERATURE: 1,
+    SUPPORT_TARGET_TEMPERATURE_RANGE: 2,
+    SUPPORT_TARGET_HUMIDITY: 4,
+    SUPPORT_FAN_MODE: 8,
+    SUPPORT_PRESET_MODE: 16,
+    SUPPORT_SWING_MODE: 32,
+    SUPPORT_AUX_HEAT: 64,
+  } as const;
+
   static readonly domain = 'climate';
   static readonly order = 2;
   static readonly title = 'Climate';
@@ -117,8 +129,199 @@ export default class Climate extends Tile {
       :host(:not([dark])) .target-temp {
         color: var(--tile-text-light);
       }
+
+      .tile {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .tile-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .expanded-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 8px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      :host([dark]) .expanded-controls {
+        border-top-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .control-section {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .control-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        opacity: 0.6;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .control-label ha-icon {
+        --mdc-icon-size: 14px;
+        opacity: 0.7;
+      }
+
+      .temperature-control {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .temp-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      :host([dark]) .temp-button {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .temp-button:hover {
+        background: rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+      }
+
+      :host([dark]) .temp-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .temp-button:active {
+        transform: scale(0.95);
+      }
+
+      .temp-button ha-icon {
+        --mdc-icon-size: 20px;
+      }
+
+      .temp-display {
+        font-size: 24px;
+        font-weight: 600;
+        min-width: 80px;
+        text-align: center;
+      }
+
+      .mode-buttons,
+      .fan-buttons {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .mode-button,
+      .fan-button {
+        flex: 1;
+        min-width: fit-content;
+        padding: 8px 12px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: rgba(0, 0, 0, 0.1);
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      :host([dark]) .mode-button,
+      :host([dark]) .fan-button {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .mode-button:hover,
+      .fan-button:hover {
+        background: rgba(0, 0, 0, 0.2);
+        transform: scale(1.02);
+      }
+
+      :host([dark]) .mode-button:hover,
+      :host([dark]) .fan-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .mode-button.active {
+        background: rgba(33, 150, 243, 0.3);
+        border: 1px solid rgba(33, 150, 243, 0.5);
+      }
+
+      :host([dark]) .mode-button.active {
+        background: rgba(33, 150, 243, 0.3);
+        border: 1px solid rgba(33, 150, 243, 0.5);
+      }
+
+      .fan-button.active {
+        background: rgba(33, 150, 243, 0.3);
+        border: 1px solid rgba(33, 150, 243, 0.5);
+      }
+
+      :host([dark]) .fan-button.active {
+        background: rgba(33, 150, 243, 0.3);
+        border: 1px solid rgba(33, 150, 243, 0.5);
+      }
+
+      .more-info-button {
+        margin-top: 4px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: rgba(0, 0, 0, 0.05);
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      :host([dark]) .more-info-button {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .more-info-button:hover {
+        background: rgba(0, 0, 0, 0.1);
+        transform: scale(1.01);
+      }
+
+      :host([dark]) .more-info-button:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .more-info-button ha-icon {
+        --mdc-icon-size: 14px;
+      }
+
+      ha-icon.tile-icon {
+        cursor: pointer;
+      }
     `,
   ];
+
+  @state() private expanded = false;
 
   get hvacMode(): string {
     return this.state?.state || 'unavailable';
@@ -144,32 +347,91 @@ export default class Climate extends Tile {
     }
   }
 
-  get currentTemperature() {
+  get currentTemperature(): number | null {
     const temp = this.state?.attributes?.current_temperature ?? null;
     return temp !== null ? temp : null;
   }
 
-  get targetTemperature() {
+  get targetTemperature(): number | null {
     const temp = this.state?.attributes?.temperature ?? null;
     return temp !== null ? temp : null;
   }
 
-  get targetTemperatureLow() {
+  get targetTemperatureLow(): number | null {
     const temp = this.state?.attributes?.target_temp_low ?? null;
     return temp !== null ? temp : null;
   }
 
-  get targetTemperatureHigh() {
+  get targetTemperatureHigh(): number | null {
     const temp = this.state?.attributes?.target_temp_high ?? null;
     return temp !== null ? temp : null;
   }
 
-  get temperatureUnit() {
+  get temperatureUnit(): string {
     return this.hass?.config?.unit_system?.temperature || '°C';
   }
 
-  get hvacAction() {
+  get hvacAction(): string | null {
     return this.state?.attributes?.hvac_action || null;
+  }
+
+  get supportedHvacModes(): string[] {
+    const modes: string[] = this.state?.attributes?.hvac_modes || [];
+    const off = modes.indexOf('off');
+    if (off !== -1) {
+      modes.splice(off, 1);
+      modes.push('off');
+    }
+    return modes;
+  }
+
+  get supportedFanModes(): string[] {
+    return this.state?.attributes?.fan_modes || [];
+  }
+
+  get currentFanMode(): string | null {
+    return this.state?.attributes?.fan_mode || null;
+  }
+
+  get minTemp(): number {
+    return this.state?.attributes?.min_temp ?? 7;
+  }
+
+  get maxTemp(): number {
+    return this.state?.attributes?.max_temp ?? 35;
+  }
+
+  get tempStep(): number {
+    return this.state?.attributes?.target_temp_step ?? 0.5;
+  }
+
+  get supportsTargetTemperature(): boolean {
+    return ((this.state?.attributes?.supported_features || 0) & Climate.FEATURES.SUPPORT_TARGET_TEMPERATURE) !== 0;
+  }
+
+  get supportsTargetTemperatureRange(): boolean {
+    return ((this.state?.attributes?.supported_features || 0) & Climate.FEATURES.SUPPORT_TARGET_TEMPERATURE_RANGE) !== 0;
+  }
+
+  get supportsFanMode(): boolean {
+    return ((this.state?.attributes?.supported_features || 0) & Climate.FEATURES.SUPPORT_FAN_MODE) !== 0;
+  }
+
+  private formatLabel(text: string): string {
+    return text
+      .replace(/[_-]/g, ' ')
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
+  private toggleExpanded(e: Event) {
+    if (e instanceof KeyboardEvent) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+    }
+    e.stopPropagation();
+    this.expanded = !this.expanded;
   }
 
   private toggle(e: Event) {
@@ -179,6 +441,60 @@ export default class Climate extends Tile {
     }
     e.stopPropagation();
     this.hass.callService(Climate.domain, 'toggle', {entity_id: this.entity.entity_id});
+  }
+
+  private increaseTemp(e: Event) {
+    if (e instanceof KeyboardEvent) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+    }
+    e.stopPropagation();
+    const current = this.targetTemperature;
+    if (current === null) return;
+    const newTemp = Math.min(current + this.tempStep, this.maxTemp);
+    this.hass.callService(Climate.domain, 'set_temperature', {
+      entity_id: this.entity.entity_id,
+      temperature: newTemp,
+    });
+  }
+
+  private decreaseTemp(e: Event) {
+    if (e instanceof KeyboardEvent) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+    }
+    e.stopPropagation();
+    const current = this.targetTemperature;
+    if (current === null) return;
+    const newTemp = Math.max(current - this.tempStep, this.minTemp);
+    this.hass.callService(Climate.domain, 'set_temperature', {
+      entity_id: this.entity.entity_id,
+      temperature: newTemp,
+    });
+  }
+
+  private setHvacMode(e: Event) {
+    if (e instanceof KeyboardEvent) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+    }
+    e.stopPropagation();
+    this.hass.callService(Climate.domain, 'set_hvac_mode', {
+      entity_id: this.entity.entity_id,
+      hvac_mode: (e.currentTarget as HTMLElement).dataset.mode,
+    });
+  }
+
+  private setFanMode(e: Event) {
+    if (e instanceof KeyboardEvent) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+    }
+    e.stopPropagation();
+    this.hass.callService(Climate.domain, 'set_fan_mode', {
+      entity_id: this.entity.entity_id,
+      fan_mode: (e.currentTarget as HTMLElement).dataset.mode,
+    });
   }
 
   private renderDetails() {
@@ -195,7 +511,6 @@ export default class Climate extends Tile {
       return html`<div class="details">${actionLabels[action] || action}</div>`;
     }
 
-    // Show HVAC mode as fallback
     const modeLabels: Record<string, string> = {
       heat: 'Heat',
       cool: 'Cool',
@@ -227,15 +542,137 @@ export default class Climate extends Tile {
     `;
   }
 
-  render() {
+  private renderExpandedControls() {
+    const {supportedHvacModes} = this;
     return html`
-      <div class="tile ${this.hvacMode}" @click=${this.showMoreInfo} @keydown=${this.showMoreInfo} tabindex="0" role="button" aria-label="${this.displayName}">
-        <ha-icon icon="${this.icon}" @click=${this.toggle} @keydown=${this.toggle} tabindex="-1" role="button" aria-label="Toggle climate"></ha-icon>
-        <div class="info">
-          <div class="name">${this.displayName}</div>
-          ${this.renderDetails()}
+      <div class="expanded-controls">
+        ${(this.supportsTargetTemperature || this.supportsTargetTemperatureRange) && this.targetTemperature !== null
+          ? html`
+              <div class="control-section">
+                <div class="control-label">
+                  <ha-icon icon="mdi:thermometer"></ha-icon>
+                  <span>Temperature</span>
+                </div>
+                <div class="temperature-control">
+                  <div
+                    class="temp-button"
+                    @click=${this.decreaseTemp}
+                    @keydown=${this.decreaseTemp}
+                    tabindex="-1"
+                    role="button"
+                    aria-label="Decrease temperature"
+                  >
+                    <ha-icon icon="mdi:minus"></ha-icon>
+                  </div>
+                  <div class="temp-display">${this.targetTemperature}${this.temperatureUnit}</div>
+                  <div
+                    class="temp-button"
+                    @click=${this.increaseTemp}
+                    @keydown=${this.increaseTemp}
+                    tabindex="-1"
+                    role="button"
+                    aria-label="Increase temperature"
+                  >
+                    <ha-icon icon="mdi:plus"></ha-icon>
+                  </div>
+                </div>
+              </div>
+            `
+          : null}
+        ${supportedHvacModes.length
+          ? html`
+              <div class="control-section">
+                <div class="control-label">
+                  <ha-icon icon="mdi:state-machine"></ha-icon>
+                  <span>Mode</span>
+                </div>
+                <div class="mode-buttons">
+                  ${repeat(
+                    supportedHvacModes,
+                    (mode) => mode,
+                    (mode) => html`
+                      <div
+                        class="mode-button ${mode === this.hvacMode ? 'active' : ''}"
+                        data-mode=${mode}
+                        @click=${this.setHvacMode}
+                        @keydown=${this.setHvacMode}
+                        tabindex="-1"
+                        role="button"
+                        aria-label="Set mode to ${mode}"
+                      >
+                        ${this.formatLabel(mode)}
+                      </div>
+                    `
+                  )}
+                </div>
+              </div>
+            `
+          : null}
+        ${this.supportsFanMode && this.supportedFanModes.length
+          ? html`
+              <div class="control-section">
+                <div class="control-label">
+                  <ha-icon icon="mdi:fan"></ha-icon>
+                  <span>Fan Speed</span>
+                </div>
+                <div class="fan-buttons">
+                  ${repeat(
+                    this.supportedFanModes,
+                    (mode) => mode,
+                    (mode) => html`
+                      <div
+                        class="fan-button ${mode === this.currentFanMode ? 'active' : ''}"
+                        data-mode=${mode}
+                        @click=${this.setFanMode}
+                        @keydown=${this.setFanMode}
+                        tabindex="-1"
+                        role="button"
+                        aria-label="Set fan mode to ${mode}"
+                      >
+                        ${this.formatLabel(mode)}
+                      </div>
+                    `
+                  )}
+                </div>
+              </div>
+            `
+          : null}
+        <div class="more-info-button" @click=${this.showMoreInfo} @keydown=${this.showMoreInfo} tabindex="-1" role="button" aria-label="More info">
+          <ha-icon icon="mdi:information-outline"></ha-icon>
+          <span>More Info</span>
         </div>
-        ${this.renderTemperature()}
+      </div>
+    `;
+  }
+
+  render() {
+    const {hvacMode} = this;
+    return html`
+      <div
+        class="tile ${hvacMode}"
+        tabindex="0"
+        role="button"
+        @click=${hvacMode !== 'unavailable' ? this.toggleExpanded : null}
+        @keydown=${hvacMode !== 'unavailable' ? this.toggleExpanded : null}
+        aria-label="${this.displayName}"
+      >
+        <div class="tile-header">
+          <ha-icon
+            class="tile-icon"
+            icon="${this.icon}"
+            @click=${this.toggle}
+            @keydown=${this.toggle}
+            tabindex="-1"
+            role="button"
+            aria-label="Toggle climate"
+          ></ha-icon>
+          <div class="info">
+            <div class="name">${this.displayName}</div>
+            ${this.renderDetails()}
+          </div>
+          ${this.renderTemperature()}
+        </div>
+        ${this.expanded ? this.renderExpandedControls() : null}
       </div>
     `;
   }

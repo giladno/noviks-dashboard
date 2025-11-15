@@ -1,4 +1,5 @@
 import {css, html} from 'lit';
+import {state} from 'lit/decorators.js';
 import Tile from './tile';
 
 export default class Cover extends Tile {
@@ -58,14 +59,47 @@ export default class Cover extends Tile {
         color: rgba(255, 59, 48, 0.6);
       }
 
-      .controls {
+      .tile {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .tile-header {
         display: flex;
-        gap: 4px;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .chevron-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .chevron-button ha-icon {
+        --mdc-icon-size: 16px;
+        transition: transform 0.2s ease;
+      }
+
+      .expanded-controls {
+        display: flex;
+        gap: 8px;
+        margin-top: 4px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      :host([dark]) .expanded-controls {
+        border-top-color: rgba(255, 255, 255, 0.1);
       }
 
       .control-button {
-        width: 28px;
-        height: 28px;
+        flex: 1;
+        height: 36px;
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -81,7 +115,7 @@ export default class Cover extends Tile {
 
       .control-button:hover {
         background: rgba(0, 0, 0, 0.2);
-        transform: scale(1.05);
+        transform: scale(1.02);
       }
 
       :host([dark]) .control-button:hover {
@@ -89,47 +123,59 @@ export default class Cover extends Tile {
       }
 
       .control-button:active {
-        transform: scale(0.95);
+        transform: scale(0.98);
       }
 
       .control-button ha-icon {
-        --mdc-icon-size: 18px;
+        --mdc-icon-size: 20px;
         color: inherit;
+      }
+
+      ha-icon.tile-icon {
+        cursor: pointer;
       }
     `,
   ];
+
+  @state() private expanded = false;
 
   get coverState(): string {
     return this.state?.state || 'unavailable';
   }
 
-  get opened() {
-    return this.coverState === 'open';
-  }
-
   get icon() {
+    const opened = this.coverState === 'open';
     switch (this.state?.attributes?.device_class) {
       case 'garage':
-        return this.opened ? 'mdi:garage-open' : 'mdi:garage';
+        return opened ? 'mdi:garage-open' : 'mdi:garage';
       case 'door':
-        return this.opened ? 'mdi:door-open' : 'mdi:door-closed';
+        return opened ? 'mdi:door-open' : 'mdi:door-closed';
       case 'window':
-        return this.opened ? 'mdi:window-open' : 'mdi:window-closed';
+        return opened ? 'mdi:window-open' : 'mdi:window-closed';
       case 'curtain':
-        return this.opened ? 'mdi:curtains' : 'mdi:curtains-closed';
+        return opened ? 'mdi:curtains' : 'mdi:curtains-closed';
       case 'shutter':
-        return this.opened ? 'mdi:window-shutter-open' : 'mdi:window-shutter';
+        return opened ? 'mdi:window-shutter-open' : 'mdi:window-shutter';
       case 'shade':
       case 'blind':
-        return this.opened ? 'mdi:blinds-open' : 'mdi:blinds';
+        return opened ? 'mdi:blinds-open' : 'mdi:blinds';
       default:
-        return this.opened ? 'mdi:window-open' : 'mdi:window-closed';
+        return opened ? 'mdi:window-open' : 'mdi:window-closed';
     }
   }
 
   get position() {
     if (((this.state?.attributes?.supported_features || 0) & Cover.FEATURES.SUPPORT_SET_POSITION) === 0) return null;
     return this.state?.attributes?.current_position ?? null;
+  }
+
+  private toggleExpanded(e: Event) {
+    if (e instanceof KeyboardEvent) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+    }
+    e.stopPropagation();
+    this.expanded = !this.expanded;
   }
 
   private handleOpen(e: Event) {
@@ -160,35 +206,43 @@ export default class Cover extends Tile {
   }
 
   render() {
+    const {coverState} = this;
     return html`
       <div
-        class="tile ${this.coverState}"
-        @click=${this.showMoreInfo}
-        @keydown=${this.showMoreInfo}
+        class="tile ${coverState}"
         tabindex="0"
         role="button"
+        @click=${coverState !== 'unavailable' ? this.toggleExpanded : null}
+        @keydown=${coverState !== 'unavailable' ? this.toggleExpanded : null}
         aria-label="${this.displayName}"
       >
-        <ha-icon icon="${this.icon}" @click=${this.handleStop} @keydown=${this.handleStop} tabindex="-1" role="button" aria-label="Stop cover"></ha-icon>
-        <div class="info">
-          <div class="name">${this.displayName}</div>
-          ${this.position && this.coverState !== 'opening' && this.coverState !== 'closing' ? html`<div class="details">${this.position}%</div>` : null}
-          ${this.coverState === 'opening' ? html`<div class="details">Opening...</div>` : null}
-          ${this.coverState === 'closing' ? html`<div class="details">Closing...</div>` : null}
+        <div class="tile-header">
+          <ha-icon
+            class="tile-icon"
+            icon="${this.icon}"
+            @click=${this.showMoreInfo}
+            @keydown=${this.showMoreInfo}
+            tabindex="-1"
+            role="button"
+            aria-label="${this.displayName} - More info"
+          ></ha-icon>
+          <div class="info">
+            <div class="name">${this.displayName}</div>
+            ${this.position && coverState !== 'opening' && coverState !== 'closing' ? html`<div class="details">${this.position}%</div>` : null}
+            ${coverState === 'opening' ? html`<div class="details">Opening...</div>` : null}
+            ${coverState === 'closing' ? html`<div class="details">Closing...</div>` : null}
+          </div>
+          ${this.expanded ? html`<div class="chevron-button"><ha-icon icon="mdi:chevron-up"></ha-icon></div> ` : null}
         </div>
-        ${this.coverState !== 'unavailable'
+        ${this.expanded
           ? html`
-              <div class="controls">
+              <div class="expanded-controls">
                 <div class="control-button" @click=${this.handleOpen} @keydown=${this.handleOpen} tabindex="-1" role="button" aria-label="Open cover">
                   <ha-icon icon="mdi:arrow-up"></ha-icon>
                 </div>
-                ${this.coverState === 'opening' || this.coverState === 'closing'
-                  ? html`
-                      <div class="control-button" @click=${this.handleStop} @keydown=${this.handleStop} tabindex="-1" role="button" aria-label="Stop cover">
-                        <ha-icon icon="mdi:stop"></ha-icon>
-                      </div>
-                    `
-                  : null}
+                <div class="control-button" @click=${this.handleStop} @keydown=${this.handleStop} tabindex="-1" role="button" aria-label="Stop cover">
+                  <ha-icon icon="mdi:stop"></ha-icon>
+                </div>
                 <div class="control-button" @click=${this.handleClose} @keydown=${this.handleClose} tabindex="-1" role="button" aria-label="Close cover">
                   <ha-icon icon="mdi:arrow-down"></ha-icon>
                 </div>

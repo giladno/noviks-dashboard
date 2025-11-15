@@ -56,61 +56,6 @@ export default class Lock extends Tile {
       .tile.unavailable ha-icon {
         color: rgba(255, 59, 48, 0.6);
       }
-
-      .controls {
-        display: flex;
-        gap: 4px;
-      }
-
-      .control-button {
-        width: 28px;
-        height: 28px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        background: rgba(0, 0, 0, 0.1);
-      }
-
-      :host([dark]) .control-button {
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      .control-button:hover {
-        background: rgba(0, 0, 0, 0.2);
-        transform: scale(1.05);
-      }
-
-      :host([dark]) .control-button:hover {
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      .control-button:active {
-        transform: scale(0.95);
-      }
-
-      .control-button ha-icon {
-        --mdc-icon-size: 18px;
-        color: inherit;
-      }
-
-      .control-button.lock-button {
-        background: rgba(76, 175, 80, 0.2);
-      }
-
-      .control-button.lock-button:hover {
-        background: rgba(76, 175, 80, 0.3);
-      }
-
-      .control-button.unlock-button {
-        background: rgba(255, 152, 0, 0.2);
-      }
-
-      .control-button.unlock-button:hover {
-        background: rgba(255, 152, 0, 0.3);
-      }
     `,
   ];
 
@@ -156,73 +101,27 @@ export default class Lock extends Tile {
     }
   }
 
-  private handleLock(e: Event) {
+  private toggle(e: Event) {
     if (e instanceof KeyboardEvent) {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       e.preventDefault();
     }
     e.stopPropagation();
-    this.hass.callService(Lock.domain, 'lock', {entity_id: this.entity.entity_id});
-  }
-
-  private handleUnlock(e: Event) {
-    if (e instanceof KeyboardEvent) {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      e.preventDefault();
+    if (this.locked) {
+      this.hass.callService(Lock.domain, 'unlock', {entity_id: this.entity.entity_id});
+    } else {
+      this.hass.callService(Lock.domain, 'lock', {entity_id: this.entity.entity_id});
     }
-    e.stopPropagation();
-    this.hass.callService(Lock.domain, 'unlock', {entity_id: this.entity.entity_id});
-  }
-
-  private handleToggle(e: Event) {
-    if (e instanceof KeyboardEvent) {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      e.preventDefault();
-    }
-    e.stopPropagation();
-    if (this.locked) this.handleUnlock(e);
-    else this.handleLock(e);
   }
 
   render() {
     return html`
       <div class="tile ${this.lockState}" @click=${this.showMoreInfo} @keydown=${this.showMoreInfo} tabindex="0" role="button" aria-label="${this.displayName}">
-        <ha-icon icon="${this.icon}" @click=${this.handleToggle} @keydown=${this.handleToggle} tabindex="-1" role="button" aria-label="Toggle lock"></ha-icon>
+        <ha-icon icon="${this.icon}" @click=${this.toggle} @keydown=${this.toggle} tabindex="-1" role="button" aria-label="Toggle lock"></ha-icon>
         <div class="info">
           <div class="name">${this.displayName}</div>
           <div class="details">${this.stateLabel}</div>
         </div>
-        ${this.lockState !== 'unavailable' && this.lockState !== 'locking' && this.lockState !== 'unlocking' && this.lockState !== 'jammed'
-          ? html`
-              <div class="controls">
-                ${this.locked
-                  ? html`
-                      <div
-                        class="control-button unlock-button"
-                        @click=${this.handleUnlock}
-                        @keydown=${this.handleUnlock}
-                        tabindex="-1"
-                        role="button"
-                        aria-label="Unlock"
-                      >
-                        <ha-icon icon="mdi:lock-open"></ha-icon>
-                      </div>
-                    `
-                  : html`
-                      <div
-                        class="control-button lock-button"
-                        @click=${this.handleLock}
-                        @keydown=${this.handleLock}
-                        tabindex="-1"
-                        role="button"
-                        aria-label="Lock"
-                      >
-                        <ha-icon icon="mdi:lock"></ha-icon>
-                      </div>
-                    `}
-              </div>
-            `
-          : null}
       </div>
     `;
   }

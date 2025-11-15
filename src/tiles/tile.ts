@@ -44,6 +44,7 @@ export default class Tile extends LitElement {
       transition: var(--tile-transition);
       background: rgba(255, 255, 255, 0.7);
       border: 1px solid rgba(0, 0, 0, 0.15);
+      transform-origin: top;
     }
 
     :host([dark]) .tile {
