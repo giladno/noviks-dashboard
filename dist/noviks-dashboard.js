@@ -472,7 +472,7 @@ const kt = (o, e, t) => {
   }
   return i._$AI(o), i;
 };
-const Pe = globalThis;
+const Te = globalThis;
 let W = class extends V {
   constructor() {
     super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
@@ -495,10 +495,10 @@ let W = class extends V {
     return G;
   }
 };
-W._$litElement$ = !0, W.finalized = !0, Pe.litElementHydrateSupport?.({ LitElement: W });
-const _t = Pe.litElementPolyfillSupport;
+W._$litElement$ = !0, W.finalized = !0, Te.litElementHydrateSupport?.({ LitElement: W });
+const _t = Te.litElementPolyfillSupport;
 _t?.({ LitElement: W });
-(Pe.litElementVersions ??= []).push("4.2.1");
+(Te.litElementVersions ??= []).push("4.2.1");
 const wt = { attribute: !0, type: String, converter: ne, reflect: !1, hasChanged: Ae }, At = (o = wt, e, t) => {
   const { kind: r, metadata: i } = t;
   let a = globalThis.litPropertyMetadata.get(i);
@@ -732,14 +732,14 @@ R.domain = "button", R.order = 6, R.title = "Buttons", R.icon = "mdi:gesture-tap
     `
 ];
 let fe = R;
-const Pt = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const Tt = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: fe
 }, Symbol.toStringTag, { value: "Module" }));
-var Tt = Object.defineProperty, Mt = (o, e, t, r) => {
+var Pt = Object.defineProperty, Mt = (o, e, t, r) => {
   for (var i = void 0, a = o.length - 1, n; a >= 0; a--)
     (n = o[a]) && (i = n(e, t, i) || i);
-  return i && Tt(e, t, i), i;
+  return i && Pt(e, t, i), i;
 };
 const B = class B extends m {
   constructor() {
@@ -962,6 +962,9 @@ const Je = (y = class extends m {
   constructor() {
     super(...arguments), this.expanded = !1;
   }
+  updated(e) {
+    super.updated(e), e.has("expanded") && this.toggleAttribute("expanded", this.expanded);
+  }
   get hvacMode() {
     return this.state?.state || "unavailable";
   }
@@ -1132,9 +1135,14 @@ const Je = (y = class extends m {
       <div class="expanded-controls">
         ${(this.supportsTargetTemperature || this.supportsTargetTemperatureRange) && this.targetTemperature !== null ? p`
               <div class="control-section">
-                <div class="control-label">
-                  <ha-icon icon="mdi:thermometer"></ha-icon>
-                  <span>Temperature</span>
+                <div class="control-header">
+                  <div class="control-label">
+                    <ha-icon icon="mdi:thermometer"></ha-icon>
+                    <span>Temperature</span>
+                  </div>
+                  <div class="more-info-button" @click=${this.showMoreInfo} @keydown=${this.showMoreInfo} tabindex="-1" role="button" aria-label="More info">
+                    <ha-icon icon="mdi:information-outline"></ha-icon>
+                  </div>
                 </div>
                 <div class="temperature-control">
                   <div
@@ -1215,10 +1223,6 @@ const Je = (y = class extends m {
                 </div>
               </div>
             ` : null}
-        <div class="more-info-button" @click=${this.showMoreInfo} @keydown=${this.showMoreInfo} tabindex="-1" role="button" aria-label="More info">
-          <ha-icon icon="mdi:information-outline"></ha-icon>
-          <span>More Info</span>
-        </div>
       </div>
     `;
   }
@@ -1390,6 +1394,7 @@ const Je = (y = class extends m {
         gap: 12px;
         margin-top: 8px;
         padding-top: 12px;
+        padding-bottom: 4px;
         border-top: 1px solid rgba(0, 0, 0, 0.1);
       }
 
@@ -1411,7 +1416,18 @@ const Je = (y = class extends m {
         letter-spacing: 0.5px;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
+        color: var(--tile-text-light);
+      }
+
+      :host([dark]) .control-label {
+        color: var(--tile-text-dark);
+      }
+
+      .control-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
 
       .control-label ha-icon {
@@ -1464,6 +1480,11 @@ const Je = (y = class extends m {
         font-weight: 600;
         min-width: 80px;
         text-align: center;
+        color: var(--tile-text-light);
+      }
+
+      :host([dark]) .temp-display {
+        color: var(--tile-text-dark);
       }
 
       .mode-buttons,
@@ -1487,11 +1508,13 @@ const Je = (y = class extends m {
         background: rgba(0, 0, 0, 0.1);
         font-size: 12px;
         font-weight: 500;
+        color: var(--tile-text-light);
       }
 
       :host([dark]) .mode-button,
       :host([dark]) .fan-button {
         background: rgba(255, 255, 255, 0.1);
+        color: var(--tile-text-dark);
       }
 
       .mode-button:hover,
@@ -1526,39 +1549,53 @@ const Je = (y = class extends m {
       }
 
       .more-info-button {
-        margin-top: 4px;
-        padding: 6px 12px;
-        border-radius: 6px;
+        padding: 8px;
+        min-width: 44px;
+        min-height: 44px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 4px;
         cursor: pointer;
         transition: all 0.2s ease;
-        background: rgba(0, 0, 0, 0.05);
-        font-size: 11px;
-        font-weight: 500;
+        background: transparent;
+        color: var(--tile-text-light);
+        opacity: 0.6;
       }
 
       :host([dark]) .more-info-button {
-        background: rgba(255, 255, 255, 0.05);
+        color: var(--tile-text-dark);
       }
 
       .more-info-button:hover {
         background: rgba(0, 0, 0, 0.1);
-        transform: scale(1.01);
+        opacity: 1;
       }
 
       :host([dark]) .more-info-button:hover {
         background: rgba(255, 255, 255, 0.1);
       }
 
+      .more-info-button:active {
+        transform: scale(0.95);
+      }
+
       .more-info-button ha-icon {
-        --mdc-icon-size: 14px;
+        --mdc-icon-size: 18px;
       }
 
       ha-icon.tile-icon {
         cursor: pointer;
+      }
+
+      /* When expanded, span 2 grid columns to have the width of 2 tiles + 1 gap */
+      :host([expanded]) {
+        grid-column: span 2;
+      }
+
+      :host {
+        display: block;
+        contain: layout style;
       }
     `
 ], y);
@@ -2387,7 +2424,7 @@ const M = (N = class extends W {
     return p`
       <div class="domain-list">
         ${A(
-      Array.from(T.values()).sort((e, t) => e.order - t.order),
+      Array.from(P.values()).sort((e, t) => e.order - t.order),
       (e) => e.domain,
       (e) => p`
             <div class="domain-item">
@@ -2420,7 +2457,7 @@ const M = (N = class extends W {
     if (this.expandedSection === e && this.entitySearch.length >= 2) {
       const n = this.entitySearch.toLowerCase();
       i.push(
-        ...this.registry.entities.filter((l) => r.includes(l.entity_id) || !T.has(l.domain ?? "") ? !1 : (l.name || l.original_name || "").toLowerCase().includes(n) || l.entity_id.toLowerCase().includes(n)).slice(0, 10)
+        ...this.registry.entities.filter((l) => r.includes(l.entity_id) || !P.has(l.domain ?? "") ? !1 : (l.name || l.original_name || "").toLowerCase().includes(n) || l.entity_id.toLowerCase().includes(n)).slice(0, 10)
       );
     }
     const a = r.map((n) => this.registry.entities.find((l) => l.entity_id === n)).filter(Boolean);
@@ -2449,7 +2486,7 @@ const M = (N = class extends W {
           r.indexOf(n.entity_id) >= 0 || (r.push(n.entity_id), this.entitySearch = "", this.requestUpdate(), this.debouncedSave());
         }}
                       >
-                        <ha-icon .icon=${n.icon || T.get(l)?.icon || `mdi:${n.domain}`}></ha-icon>
+                        <ha-icon .icon=${n.icon || P.get(l)?.icon || `mdi:${n.domain}`}></ha-icon>
                         <div class="entity-dropdown-info">
                           <div class="entity-dropdown-name">${n.name || n.original_name || n.entity_id}</div>
                           <div class="entity-dropdown-id">${n.entity_id}</div>
@@ -2471,7 +2508,7 @@ const M = (N = class extends W {
         const l = n.domain;
         return p`
                     <div class="entity-chip">
-                      <ha-icon .icon=${n.icon || T.get(l)?.icon || `mdi:${l}`}></ha-icon>
+                      <ha-icon .icon=${n.icon || P.get(l)?.icon || `mdi:${l}`}></ha-icon>
                       <span>${n.name || n.original_name || n.entity_id}</span>
                       <ha-icon
                         class="chip-remove"
@@ -3462,10 +3499,10 @@ var ei = Object.defineProperty, et = (o, e, t, r) => {
     (n = o[a]) && (i = n(e, t, i) || i);
   return i && ei(e, t, i), i;
 };
-const T = new Map(
-  Object.values([Pt, Ot, Ft, Wt, Yt, Gt, Vt, Xt, Et]).map((o) => o.default.domain && [o.default.domain, o.default]).filter(Boolean).sort((o, e) => o[1].order - e[1].order)
+const P = new Map(
+  Object.values([Tt, Ot, Ft, Wt, Yt, Gt, Vt, Xt, Et]).map((o) => o.default.domain && [o.default.domain, o.default]).filter(Boolean).sort((o, e) => o[1].order - e[1].order)
 );
-for (const [o, e] of T)
+for (const [o, e] of P)
   e.tag = `novik-${o}`, customElements.define(e.tag, e);
 const de = class de extends W {
   constructor() {
@@ -3554,14 +3591,14 @@ const de = class de extends W {
       e,
       (t) => t.entity_id,
       // eslint-disable-next-line lit/binding-positions, lit/no-invalid-html
-      (t) => _`<${Fe(T.get(t.domain).tag)} .hass=${this.hass} .entity=${t} .dark=${this.dark} />`
+      (t) => _`<${Fe(P.get(t.domain).tag)} .hass=${this.hass} .entity=${t} .dark=${this.dark} />`
     )}
       </div>` : _`<div class="group-tiles">
       ${A(
       e,
       (t) => t.entity_id,
       // eslint-disable-next-line lit/binding-positions, lit/no-invalid-html
-      (t) => _`<${Fe(T.get(t.domain).tag)} .hass=${this.hass} .entity=${t} .dark=${this.dark} />`
+      (t) => _`<${Fe(P.get(t.domain).tag)} .hass=${this.hass} .entity=${t} .dark=${this.dark} />`
     )}
     </div>` : null;
   }
@@ -4026,7 +4063,7 @@ et([
 ], C.prototype, "dark");
 customElements.define(C.tag, C);
 function te(o, e) {
-  return T.get(o.domain).order - T.get(e.domain).order || String(o.name || o.original_name || o.entity_id).localeCompare(String(e.name || e.original_name || e.entity_id)) || o.entity_id.localeCompare(e.entity_id);
+  return P.get(o.domain).order - P.get(e.domain).order || String(o.name || o.original_name || o.entity_id).localeCompare(String(e.name || e.original_name || e.entity_id)) || o.entity_id.localeCompare(e.entity_id);
 }
 function Ke(o, e, t) {
   if (t.length) {
@@ -4062,7 +4099,7 @@ function qe(o, e = !1) {
   }
   return r;
 }
-const Te = class Te extends HTMLElement {
+const Pe = class Pe extends HTMLElement {
   static async generate(e, t) {
     const [r, i, a, n] = await Promise.all([
       t.callWS({ type: "lovelace/config", url_path: t.panelUrl }).catch(() => ({})),
@@ -4084,10 +4121,10 @@ const Te = class Te extends HTMLElement {
     const d = new Map(i.map((h) => [h.area_id, { ...h, entities: [] }])), b = new Map(a.map((h) => [h.id, h])), c = /* @__PURE__ */ new Map(), g = /* @__PURE__ */ new Map(), u = /* @__PURE__ */ new Map();
     for (const h of n) {
       const v = h.entity_id.match(/^([^.]+)\./)?.[1];
-      if (!v || (h.domain = v, !T.has(v)) || s.excluded_domains.includes(v) || s.excluded_entities.includes(h.entity_id)) continue;
-      const P = b.get(h.device_id ?? "");
-      if (h.disabled_by || h.hidden_by || P?.disabled_by) continue;
-      const w = d.get(h.area_id || P?.area_id || "");
+      if (!v || (h.domain = v, !P.has(v)) || s.excluded_domains.includes(v) || s.excluded_entities.includes(h.entity_id)) continue;
+      const T = b.get(h.device_id ?? "");
+      if (h.disabled_by || h.hidden_by || T?.disabled_by) continue;
+      const w = d.get(h.area_id || T?.area_id || "");
       w && (s.hidden_areas?.includes(w.area_id) || (w.entities.push(h), h.area = w, c.set(h.entity_id, h), g.get(v)?.push(h) || g.set(v, [h]), u.get(w?.area_id || null)?.push(h) || u.set(w?.area_id || null, [h])));
     }
     const f = qe(g), k = [
@@ -4126,14 +4163,14 @@ const Te = class Te extends HTMLElement {
             registry: l,
             domain: h[0],
             areas: Array.from(
-              v.reduce((P, w) => {
+              v.reduce((T, w) => {
                 const { area: ge } = w;
-                return P.get(ge.area_id)?.entities.push(w) || P.set(ge.area_id, {
+                return T.get(ge.area_id)?.entities.push(w) || T.set(ge.area_id, {
                   ...ge,
                   entities: [w]
-                }), P;
+                }), T;
               }, /* @__PURE__ */ new Map()).values()
-            ).sort((P, w) => Ke(P, w, s.area_order))
+            ).sort((T, w) => Ke(T, w, s.area_order))
           }
         ]
       });
@@ -4151,7 +4188,7 @@ const Te = class Te extends HTMLElement {
             settings: s,
             registry: l,
             area: h,
-            sensors: v.filter((P) => P.domain === "sensor"),
+            sensors: v.filter((T) => T.domain === "sensor"),
             domains: qe(v, !0)
           }
         ]
@@ -4160,8 +4197,8 @@ const Te = class Te extends HTMLElement {
     return { views: k };
   }
 };
-Te.tag = "ll-strategy-dashboard-novik-strategy";
-let ce = Te;
+Pe.tag = "ll-strategy-dashboard-novik-strategy";
+let ce = Pe;
 customElements.define(ce.tag, ce);
 export {
   ce as Strategy
