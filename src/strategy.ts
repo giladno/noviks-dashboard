@@ -1,5 +1,6 @@
 import type {AreaRegistryEntry, DeviceRegistryEntry, EntityRegistryEntry, HomeAssistant, LovelaceCardConfig} from 'types/ha';
 import {NovikSettings} from 'types/settings';
+import {areasCompareFn, specialAreas} from './utils/areas';
 import {View, tiles} from './view';
 
 function entitiesCompareFn(a: EntityRegistryEntry, b: EntityRegistryEntry): number {
@@ -8,17 +9,6 @@ function entitiesCompareFn(a: EntityRegistryEntry, b: EntityRegistryEntry): numb
     String(a.name || a.original_name || a.entity_id).localeCompare(String(b.name || b.original_name || b.entity_id)) ||
     a.entity_id.localeCompare(b.entity_id)
   );
-}
-
-function areasCompareFn(a: AreaRegistryEntry, b: AreaRegistryEntry, order: string[]): number {
-  if (order.length) {
-    const aIndex = order.indexOf(a.area_id);
-    const bIndex = order.indexOf(b.area_id);
-    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
-    if (aIndex !== -1) return -1;
-    if (bIndex !== -1) return 1;
-  }
-  return a.floor_id === b.floor_id ? a.name.localeCompare(b.name) : a.floor_id === null ? 1 : b.floor_id === null ? -1 : a.floor_id!.localeCompare(b.floor_id!);
 }
 
 function groupEntities(entities: Map<string, EntityRegistryEntry[]> | EntityRegistryEntry[], other = false) {
@@ -83,6 +73,10 @@ export class Strategy extends HTMLElement {
       (config?.settings as NovikSettings) || {}
     );
 
+    for (const area of specialAreas.values()) {
+      if (settings.hidden_areas?.includes(area.area_id)) continue;
+      areaRegistry.push(area);
+    }
     areaRegistry.sort((a, b) => areasCompareFn(a, b, settings.area_order));
 
     const areas = new Map<string, AreaRegistryEntry>(areaRegistry.map((area) => [area.area_id, {...area, entities: []}]));
@@ -118,6 +112,9 @@ export class Strategy extends HTMLElement {
 
     const shortcuts = groupEntities(domainEntities);
 
+    areaEntities.set(':favorites', settings.favorites.map((id) => entities.get(id)).filter(Boolean) as EntityRegistryEntry[]);
+    areaEntities.set(':cameras', domainEntities.get('camera')?.sort(entitiesCompareFn) || []);
+
     const views: {title?: string; path?: string; panel?: boolean; subview?: boolean; cards: LovelaceCardConfig[]}[] = [
       {
         title: 'Home',
@@ -130,15 +127,13 @@ export class Strategy extends HTMLElement {
             settings,
             registry,
             chips: shortcuts,
-            favorites: settings.favorites.map((id) => entities.get(id)).filter(Boolean) as EntityRegistryEntry[],
-            cameras: domainEntities.get('camera')?.sort(entitiesCompareFn),
             areas: areaRegistry
               .filter((area) => areaEntities.get(area.area_id))
               .map((area) => ({
                 ...area,
                 entities: areaEntities
                   .get(area.area_id)!
-                  .filter((entity) => entity.domain !== 'camera')
+                  .filter((entity) => (area.area_id.startsWith(':') ? true : entity.domain !== 'camera'))
                   .sort(entitiesCompareFn),
               })),
           },

@@ -504,6 +504,7 @@ export class View extends LitElement {
   }
 
   private renderSection({title, icon, path, entities}: {title: string; icon?: string | null; path?: string; entities: EntityRegistryEntry[]}) {
+    if (!entities?.length) return null;
     return html`
       <div class="section">
         <div
@@ -530,19 +531,19 @@ export class View extends LitElement {
     `;
   }
 
-  private renderFavorites() {
-    const favorites = this.config.favorites as EntityRegistryEntry[] | undefined;
-    if (!favorites?.length) return null;
-    return this.renderSection({title: 'Favorites', icon: 'mdi:star', entities: favorites});
-  }
-
   private renderAreas() {
     const areas = this.config.areas as AreaRegistryEntry[] | undefined;
     if (!areas?.length) return null;
     return repeat(
       areas,
       (area) => area.area_id,
-      (area) => this.renderSection({title: area.name, icon: area.icon, path: `area-${area.area_id}`, entities: area.entities!})
+      (area) =>
+        this.renderSection({
+          title: area.name,
+          icon: area.icon,
+          path: area.area_id.startsWith(':') ? undefined : `area-${area.area_id}`,
+          entities: area.entities!,
+        })
     );
   }
 
@@ -554,12 +555,6 @@ export class View extends LitElement {
       ([domain]) => domain[0],
       ([[domain, title], entities]) => this.renderSection({title, path: domain, entities})
     );
-  }
-
-  private renderCameras() {
-    const cameras = this.config.cameras as EntityRegistryEntry[] | undefined;
-    if (!cameras?.length) return null;
-    return this.renderSection({title: 'Cameras', icon: 'mdi:camera', entities: cameras});
   }
 
   private renderSensors() {
@@ -622,7 +617,7 @@ export class View extends LitElement {
           </div>
         </div>
         ${this.renderChips() || this.renderSensors()}
-        <div class="sections">${this.renderFavorites()} ${this.renderAreas()} ${this.renderCameras()} ${this.renderDomains()}</div>
+        <div class="sections">${this.renderAreas()} ${this.renderDomains()}</div>
       </div>
     `;
   }

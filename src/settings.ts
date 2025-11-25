@@ -3,6 +3,7 @@ import {property, state} from 'lit/decorators.js';
 import {repeat} from 'lit/directives/repeat.js';
 import type {HomeAssistant} from 'types/ha';
 import {NovikSettings, Registry} from 'types/settings';
+import {areasCompareFn} from './utils/areas';
 import {tiles} from './view';
 
 export default class Settings extends LitElement {
@@ -849,17 +850,7 @@ export default class Settings extends LitElement {
   @state() private saveTimeout: number | null = null;
 
   get areas() {
-    const areas = [...this.registry.areas];
-    return this.settings.area_order.length
-      ? areas.sort((a, b) => {
-          const aIndex = this.settings.area_order!.indexOf(a.area_id);
-          const bIndex = this.settings.area_order!.indexOf(b.area_id);
-          if (aIndex === bIndex) return a.name.localeCompare(b.name);
-          if (aIndex === -1) return 1;
-          if (bIndex === -1) return -1;
-          return aIndex - bIndex;
-        })
-      : areas;
+    return [...this.registry.areas].sort((a, b) => areasCompareFn(a, b, this.settings.area_order));
   }
 
   connectedCallback() {
